@@ -1,3 +1,7 @@
+<?php 
+     session_start();
+     $inicioSesion = isset($_SESSION['username']);
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,6 +39,7 @@
 
         <div class="account-pages"></div>
         <div class="clearfix"></div>
+        <?php if (!$inicioSesion) {?>
         <div class="wrapper-page">
             <div class="text-center">
                 <a href="index.html" class="logo"><span>Admin<span>to</span></span></a>
@@ -96,7 +101,11 @@
             
         </div>
         <!-- end wrapper page -->
-        
+        <?php } else { 
+            header('Location: vistas/panel.php');
+        } 
+
+        ?>
 
         
     	<script>

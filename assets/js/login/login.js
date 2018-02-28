@@ -18,11 +18,7 @@ function loginUser () {
 			alert(response.message);
 			
 		}else{
-			if (response.role == 1) {
-				alert("Es un usuario");
-			} else{
-				alert("Es un admin");
-			};
+			location.href ="vistas/panel.php";
 		}
 	});
 }

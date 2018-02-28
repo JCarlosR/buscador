@@ -1,6 +1,6 @@
 <?php 
 	include "../modelos/usuario.php";
-	include "conexion.php";
+	include "../datos/conexion.php";
 
 	class usuarioController extends conexion {
 		public function __construct(){
@@ -8,6 +8,9 @@
 	    }
 
 		function insertarUsuario($email, $username,$password){
+			if(trim($username) == "" || trim($password) == "" || trim($email) == "")
+		        return json_encode(['error' => true, 'message' => 'Faltan datos por ingresar. :(']);
+
 		    $conn = $this->conectar();
 		
 			$usuario = new usuario();
@@ -26,13 +29,18 @@
 			));
 
 			if($result){
-				return true;
+				return json_encode(['error' => false, 'message' => 'Usuario registrado correctamente.']);
+			
 			}else{
-				return false;
+				return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
+			
 			}
 		}
 
 		function validarUsuario($username,$password){
+			if(trim($username) == "" || trim($password) == "")
+		        return json_encode(['error' => true, 'message' => 'Faltan datos por ingresar. :(']);
+
 			$conn = $this->conectar();
 			$usuario = new usuario();
 			$usuario->username = $username;
@@ -43,10 +51,19 @@
 					'username' => $usuario->username,
 					'password' => $usuario->password
 				));
-			$resultado = $sql->fetchAll();
-	        
-	        if( $resultado>0 ){
-	            return $resultado;
+			$user = $sql->fetchAll();
+
+	        if(count($user) > 0){
+	    		session_start();
+	    		foreach ($user as $row) {
+		            $_SESSION["id"] = $row['id'];
+		            $_SESSION["username"] = $row['username'];
+		            $_SESSION["rol"] = $row['rol'];
+	            }
+	            return json_encode(['error' => false, 'message' => 'Usuario registrado correctamente.', 'role' => $_SESSION["rol"] ]);
+	        }else{
+	            return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
+				
 	        }
 		}
 		/*
