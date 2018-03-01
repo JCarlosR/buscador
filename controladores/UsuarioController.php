@@ -18,14 +18,16 @@
 			$usuario->username = $username;
 			$usuario->password = base64_encode($password);
 			$usuario->rol = 1;
+			$usuario->activo = true;
 
-			$sql = $conn->prepare("INSERT INTO usuario(email, username, password, rol)
-			    VALUES(:email, :username, :password, :rol)");
+			$sql = $conn->prepare("INSERT INTO usuario(email, username, password, rol, activo)
+			    VALUES(:email, :username, :password, :rol, :activo)");
 			$result = $sql->execute(array(
 			    "email" => $usuario->email,
 			    "username" => $usuario->username,
 			    "password" => $usuario->password,
-			    "rol" => $usuario->rol
+			    "rol" => $usuario->rol,
+			    "activo" => $usuario->activo
 			));
 
 			if($result){
@@ -65,6 +67,82 @@
 	            return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
 				
 	        }
+		}
+
+		function listaUsuarios(){
+			$conn = $this->conectar();
+
+			$sql = $conn->prepare('SELECT * FROM usuario');
+			$sql->execute();
+			$users = $sql->fetchAll();
+			return $users;
+		}
+
+		function modificarUsuario($id, $email, $username,$password){
+			if(trim($username) == "" || trim($email) == "")
+		        return json_encode(['error' => true, 'message' => 'Faltan datos por ingresar. :(']);
+
+		    $conn = $this->conectar();
+		
+			$usuario = new usuario();
+			$usuario->id = $id;
+			$usuario->email = $email;
+			$usuario->username = $username;
+			$usuario->password = base64_encode($password);
+			if ($password == "" || $password == null) {
+				$sql = $conn->prepare("UPDATE usuario SET email=:email, username=:username WHERE id=:id");
+				$result = $sql->execute(array(
+				    "email" => $usuario->email,
+				    "username" => $usuario->username,
+				    "id" => $usuario->id
+				));
+				if($result){
+					return json_encode(['error' => false, 'message' => 'Usuario modificado correctamente.']);
+				
+				}else{
+					return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
+				
+				}
+			} else {
+				$sql = $conn->prepare("UPDATE usuario SET email=:email, username=:username, password=:password WHERE id=:id");
+				$result = $sql->execute(array(
+				    "email" => $usuario->email,
+				    "username" => $usuario->username,
+				    "password" => $usuario->password,
+				    "id" => $usuario->id
+				));
+				if($result){
+					return json_encode(['error' => false, 'message' => 'Usuario modificado correctamente.']);
+				
+				}else{
+					return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
+				
+				}
+			}
+			
+		}
+
+		function eliminarUsuario($id){
+			if(trim($id) == "")
+		        return json_encode(['error' => true, 'message' => 'Escoja al usuario para eliminar. :(']);
+
+		    $conn = $this->conectar();
+		
+			$usuario = new usuario();
+			$usuario->id = $id;
+
+			$sql = $conn->prepare("DELETE FROM usuario WHERE id=:id");
+			$result = $sql->execute(array(
+			    "id" => $usuario->id
+			));
+
+			if($result){
+				return json_encode(['error' => false, 'message' => 'Usuario elimnado correctamente.']);
+			
+			}else{
+				return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
+			
+			}
 		}
 		/*
 		function getId($usuario,$pass){

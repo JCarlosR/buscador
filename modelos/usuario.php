@@ -8,6 +8,7 @@
 	public $email;
 	public $password;
 	public $rol;
+	public $activo;
 
 	// Metodos
 	function get_id(){
