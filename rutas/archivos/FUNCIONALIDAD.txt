@@ -1,11 +1,13 @@
 2 tipos de comodines
-M˙ltiple: %
+M√∫ltiple: %
 Individual: *
 
 Ejemplo usando %:
 1.	%gloria%
 	Resultados:
 	holagloriacomoestas
+	estaesotragloria
+	esteesotrogloriaestas
 2.	%gloria
 	Resultados:
 	holagloria
@@ -19,46 +21,47 @@ Ejem:
 	Resultados
 	gloria
 	glorea
+	asdsadasglorXa
 	
-La app consiste en hacer b˙squedas sobre ficheros (1 fichero solo puede ser subido por el administrador).
-Los usuarios pueden configurar los tÈrminos de busqueda (usando comodines si lo desean).
-En la cuenta de cada usuario debe mostrar los resultados encontrados en base a los tÈrminos de b˙squeda registrados.
+La app consiste en hacer b√∫squedas sobre ficheros (1 fichero solo puede ser subido por el administrador).
+Los usuarios pueden configurar los t√©rminos de busqueda (usando comodines si lo desean).
+En la cuenta de cada usuario debe mostrar los resultados encontrados en base a los t√©rminos de b√∫squeda registrados.
 
 * El resultado debe contener 4 columnas:
 1. Fecha y hora (en la que se encontro el resultado)
 2. El termino de busqueda (tal cual lo configuro el usuario)
 3. Resultado
-4. EnvÌo por correo
+4. Env√≠o por correo
 
 
-Men˙
+Men√∫
 ---
 
-1. TÈrminos de busqueda.- AquÌ se listara los tÈrminos configurados por el usuario.
-Se muestra 3 columnas (Fecha de creaciÛn del tÈrmino, Termino de consulta, Borrar).
+[1.] T√©rminos de busqueda.- Aqu√≠ se listara los t√©rminos configurados por el usuario.
+Se muestra 3 columnas (Fecha de creaci√≥n del t√©rmino, Termino de consulta, Borrar).
 
-2. Resultados.- AquÌ se mostrar·n los resultados de las b˙squedas realizadas.
+2. Resultados.- Aqu√≠ se mostrar√°n los resultados de las b√∫squedas realizadas.
 * El resultado debe contener 4 columnas:
 	1. Fecha y hora (en la que se encontro el resultado). 
-	TambiÈn debe mostrar la opciÛn "crear termino de busqueda".
-	=> Al crear tÈrmino de consulta, solo muestra una caja de texto, y 2 botones: Crear, Cancelar.
+	Tambi√©n debe mostrar la opci√≥n "crear termino de busqueda".
+	=> Al crear t√©rmino de consulta, solo muestra una caja de texto, y 2 botones: Crear, Cancelar.
 	2. El termino de busqueda (tal cual lo configuro el usuario)
 	3. Resultado
-	4. EnvÌo por correo
+	4. Env√≠o por correo
 
-3. ConfiguraciÛn:
+3. Configuraci√≥n:
 	Se mostrara ajustes del usuario. 
 	Nombre de usuario
-	DirecciÛn de correo electronico
+	Direcci√≥n de correo electronico
 	Nombre
 	Apellido
-	ContraseÒa
+	Contrase√±a
 
 
 ADMINISTRADOR
 ---
-Podr· gestionar las cuentas de usuarios (CRUD).
-Podr· subir un fichero general para todos los usuarioso o sÛlo para algunos de ellos.
-Cada usario se podr· registrar y se le enviar· un codigo de verificaciÛn por correo para que el sistema valide.
+Podr√° gestionar las cuentas de usuarios (CRUD).
+Podr√° subir un fichero general para todos los usuarioso o s√≥lo para algunos de ellos.
+Cada usario se podr√° registrar y se le enviar√° un codigo de verificaci√≥n por correo para que el sistema valide.
 
 Se debe usar POO con PHP y bd MySQL.

@@ -4,7 +4,7 @@
 
 	$id = $_POST['id'];
 
-	$usuarioControl = new usuarioController();
+	$usuarioControl = new UsuarioController();
 	echo $usuarioControl->eliminarUsuario($id);
 
 ?>

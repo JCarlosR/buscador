@@ -16,7 +16,11 @@
 
 
     <li>
-        <a href="typography.html" class="waves-effect"><i class="zmdi zmdi-format-underlined"></i> <span> Typography </span> </a>
+        <a href="buscador.php" class="waves-effect"><i class="zmdi zmdi-format-underlined"></i> <span> Buscador </span> </a>
+    </li>
+
+    <li>
+        <a href="terminos.php" class="waves-effect"><i class="zmdi zmdi-chart"></i> <span> Términos </span> </a>
     </li>
 
     <li class="has_sub">

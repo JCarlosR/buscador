@@ -1,10 +1,10 @@
 <?php
 
- class Archivo{
+ class SearchTerm{
 
  	// Atributos
 	public $id;
-	public $filename;
+	public $termino;
 
 	// Metodos
 	function get_id(){
@@ -14,11 +14,11 @@
 		$this->id = $id;
 	}
 	
-	function get_filename(){
-		return $this->filename;
+	function get_termino(){
+		return $this->termino;
 	}
-	function set_filename($filename){
-		$this->filename = $filename;
+	function set_termino($termino){
+		$this->termino = $termino;
 	}
 	
  }

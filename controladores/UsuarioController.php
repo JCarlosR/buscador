@@ -2,9 +2,9 @@
 	include "../modelos/usuario.php";
 	include "../datos/conexion.php";
 
-	class usuarioController extends conexion {
+	class UsuarioController extends conexion {
 		public function __construct(){
-	        $usuarios = new usuario();
+	        $usuarios = new Usuario();
 	    }
 
 		function insertarUsuario($email, $username,$password){
@@ -13,7 +13,7 @@
 
 		    $conn = $this->conectar();
 		
-			$usuario = new usuario();
+			$usuario = new Usuario();
 			$usuario->email = $email;
 			$usuario->username = $username;
 			$usuario->password = base64_encode($password);
@@ -44,7 +44,7 @@
 		        return json_encode(['error' => true, 'message' => 'Faltan datos por ingresar. :(']);
 
 			$conn = $this->conectar();
-			$usuario = new usuario();
+			$usuario = new Usuario();
 			$usuario->username = $username;
 			$usuario->password = base64_encode($password);
 
@@ -84,7 +84,7 @@
 
 		    $conn = $this->conectar();
 		
-			$usuario = new usuario();
+			$usuario = new Usuario();
 			$usuario->id = $id;
 			$usuario->email = $email;
 			$usuario->username = $username;
@@ -128,15 +128,20 @@
 
 		    $conn = $this->conectar();
 		
-			$usuario = new usuario();
+			$usuario = new Usuario();
 			$usuario->id = $id;
 
-			$sql = $conn->prepare("DELETE FROM usuario WHERE id=:id");
+			$sql = $conn->prepare("DELETE FROM usuarios_archivos WHERE usuarioId=:id");
 			$result = $sql->execute(array(
 			    "id" => $usuario->id
 			));
 
-			if($result){
+			$sql2 = $conn->prepare("DELETE FROM usuario WHERE id=:id");
+			$result2 = $sql2->execute(array(
+			    "id" => $usuario->id
+			));
+
+			if($result2){
 				return json_encode(['error' => false, 'message' => 'Usuario elimnado correctamente.']);
 			
 			}else{

@@ -6,7 +6,7 @@
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 
-	$usuarioControl = new usuarioController();
+	$usuarioControl = new UsuarioController();
 	echo $usuarioControl->insertarUsuario($email, $username, $password);
 
 ?>

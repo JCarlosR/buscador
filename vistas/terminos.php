@@ -64,7 +64,7 @@
                                 </button>
                             </li>
                             <li>
-                                <h4 class="page-title">Archivos</h4>
+                                <h4 class="page-title">Términos</h4>
                             </li>
                         </ul>
 
@@ -136,7 +136,7 @@
             </div>
             <!-- Left Sidebar End -->
 
-            <?php include '../rutas/listaArchivos.php'; ?>
+            <?php include '../rutas/listaTerminos.php'; ?>
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -149,22 +149,24 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card-box">
-                                    <button id="btn-create" class="btn btn-info waves-effect waves-light m-b-5"> <i class="fa fa-plus m-r-5"></i> <span>Agregar archivo</span> </button>
+                                    <button id="btn-create" class="btn btn-info waves-effect waves-light m-b-5"> <i class="fa fa-plus m-r-5"></i> <span>Agregar término</span> </button>
                                     <table class="table table table-hover m-0">
                                         <thead>
                                             <tr>
-                                                <th>Nombre de archivo</th>
+                                                <th>Fecha de Creación</th>
+                                                <th>Término</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         <?php 
-                                            foreach ($archivos as $archivo) {
+                                            foreach ($terminos as $termino) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $archivo["filename"] ?></td>
+                                                <td><?php echo $termino["fechaCreacion"] ?></td>
+                                                <td><?php echo $termino["termino"] ?></td>
                                                 <td>
-                                                    <a href="#" data-delete="<?php echo $archivo["id"];?>" data-archivo="<?php echo $archivo["filename"];?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                                    <a href="#" data-delete="<?php echo $termino["id"];?>" data-termino="<?php echo $termino["termino"];?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                                 </td>
                                             </tr>
                                         <?php 
@@ -194,7 +196,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Eliminar archivo</h3>
+                            <h3 class="smaller lighter blue no-margin">Eliminar termino</h3>
                         </div>
                         <form class="form-horizontal" role="form" id="form-delete">
                             <div class="modal-body">
@@ -202,10 +204,10 @@
 
                         
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Archivo a eliminar </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Término a eliminar </label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" disabled=""  id="archivo" name="archivo" class="form-control col-xs-10 col-sm-10" />
+                                        <input type="text" disabled=""  id="termino" name="termino" class="form-control col-xs-10 col-sm-10" />
                                     </div>
                                 </div>
 
@@ -232,16 +234,16 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Subir archivo</h3>
+                            <h3 class="smaller lighter blue no-margin">Crear término</h3>
                         </div>
-                        <form class="form-horizontal" role="form" id="form-create" method="POST" enctype="multipart/form-data">
+                        <form class="form-horizontal" role="form" id="form-create" method="POST">
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Subir archivo </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Introduzca término </label>
 
                                     <div class="col-sm-9">
-                                        <input type="file" name="archivo" id="archivo" class="form-control">
+                                        <input type="input" name="termino" id="termino" class="form-control">
                                     </div>
                                 </div>
 
@@ -252,7 +254,7 @@
                                     <i class="ace-icon fa fa-times"></i>
                                     Close
                                 </button>
-                                <button id="create-file" type="submit" class="btn btn-sm btn-primary pull-left" >
+                                <button id="create-term" type="submit" class="btn btn-sm btn-primary pull-left" >
                                     <i class="ace-icon fa fa-save"></i>
                                     Guardar
                                 </button>
@@ -306,7 +308,7 @@
         <!-- App js -->
         <script src="../assets/js/jquery.core.js"></script>
         <script src="../assets/js/jquery.app.js"></script>
-        <script src="../assets/js/archivo/archivo.js"></script>
+        <script src="../assets/js/termino/termino.js"></script>
 
     </body>
 </html>

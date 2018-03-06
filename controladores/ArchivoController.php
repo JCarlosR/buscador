@@ -2,9 +2,9 @@
 	include "../modelos/archivo.php";
 	include "../datos/conexion.php";
 
-	class archivoController extends conexion {
+	class ArchivoController extends conexion {
 		public function __construct(){
-	        $archivo = new archivo();
+	        $archivo = new Archivo();
 	    }
 
 		function subirArchivo($archivo){
@@ -16,7 +16,7 @@
 
 		    $conn = $this->conectar();
 		
-			$usuario = new archivo();
+			$usuario = new Archivo();
 			$usuario->filename = $name_file;
 			
 			$dir_subida = '../rutas/archivos/';
@@ -30,6 +30,11 @@
 				    "filename" => $archivo["name"]
 				));
 
+				$idArchivo = $conn->lastInsertId();
+				$sql2 = $conn->prepare("INSERT INTO usuarios_archivos (usuarioId, archivoId)
+				SELECT id, $idArchivo from usuario");
+				$result2 = $sql2->execute();
+				
 				if($result){
 					return json_encode(['error' => false, 'message' => 'Archivo registrado correctamente.']);
 				
@@ -37,10 +42,14 @@
 					return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
 				
 				}
+
+				if(!$result2){
+					return json_encode(['error' => true, 'message' => 'Ocurrió un error en la tabla intermedia. :(']);
+				
+				}
 			} else {
 				return json_encode(['error' => true, 'message' => '¡Posible ataque de subida de ficheros! :(']);
 			}
-
 		}
 
 		function listaArchivos(){
@@ -52,28 +61,33 @@
 			return $files;
 		}
 
-		/*function eliminarUsuario($id){
+		function eliminarArchivo($id){
 			if(trim($id) == "")
-		        return json_encode(['error' => true, 'message' => 'Escoja al usuario para eliminar. :(']);
+		        return json_encode(['error' => true, 'message' => 'Escoja el archivo para eliminar. :(']);
 
 		    $conn = $this->conectar();
 		
-			$usuario = new usuario();
-			$usuario->id = $id;
+			$archivo = new Archivo();
+			$archivo->id = $id;
 
-			$sql = $conn->prepare("DELETE FROM usuario WHERE id=:id");
+			$sql = $conn->prepare("DELETE FROM usuarios_archivos WHERE archivoId=:id");
 			$result = $sql->execute(array(
-			    "id" => $usuario->id
+			    "id" => $archivo->id
 			));
 
-			if($result){
-				return json_encode(['error' => false, 'message' => 'Usuario elimnado correctamente.']);
+			$sql2 = $conn->prepare("DELETE FROM archivo WHERE id=:id");
+			$result2 = $sql2->execute(array(
+			    "id" => $archivo->id
+			));
+
+			if($result2){
+				return json_encode(['error' => false, 'message' => 'Archivo elimnado correctamente.']);
 			
 			}else{
 				return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
 			
 			}
-		}*/
+		}
 
 		/*
 		function getId($usuario,$pass){

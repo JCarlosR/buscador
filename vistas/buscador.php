@@ -64,7 +64,7 @@
                                 </button>
                             </li>
                             <li>
-                                <h4 class="page-title">Archivos</h4>
+                                <h4 class="page-title">Buscador</h4>
                             </li>
                         </ul>
 
@@ -136,7 +136,7 @@
             </div>
             <!-- Left Sidebar End -->
 
-            <?php include '../rutas/listaArchivos.php'; ?>
+            
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -158,18 +158,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php 
-                                            foreach ($archivos as $archivo) {
-                                        ?>
+                                        
                                             <tr>
-                                                <td><?php echo $archivo["filename"] ?></td>
+                                                <td>xxzcxzcxz</td>
                                                 <td>
-                                                    <a href="#" data-delete="<?php echo $archivo["id"];?>" data-archivo="<?php echo $archivo["filename"];?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                                    <a href="#" data-delete="vxzvxzvz" data-username="sdgbdbvsdb" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                                 </td>
                                             </tr>
-                                        <?php 
-                                            }
-                                        ?>
                                         </tbody>
                                     </table>
                         		</div>
@@ -194,7 +189,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="smaller lighter blue no-margin">Eliminar archivo</h3>
+                            <h3 class="smaller lighter blue no-margin">Eliminar usuario</h3>
                         </div>
                         <form class="form-horizontal" role="form" id="form-delete">
                             <div class="modal-body">
@@ -202,10 +197,10 @@
 
                         
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Archivo a eliminar </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Usuario a elimnar </label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" disabled=""  id="archivo" name="archivo" class="form-control col-xs-10 col-sm-10" />
+                                        <input type="text" disabled=""  id="username" name="username" class="form-control col-xs-10 col-sm-10" />
                                     </div>
                                 </div>
 

@@ -5,7 +5,7 @@
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 
-	$usuarioControl = new usuarioController();
+	$usuarioControl = new UsuarioController();
 	echo $usuarioControl->validarUsuario($username, $password);
 
 ?>

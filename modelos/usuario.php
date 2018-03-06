@@ -1,6 +1,6 @@
 <?php
 
- class usuario{
+ class Usuario{
 
  	// Atributos
 	public $id;

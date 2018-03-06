@@ -1,7 +1,7 @@
 <?php 
 	include '../controladores/UsuarioController.php';
 
-	$usuarioControl = new usuarioController();
+	$usuarioControl = new UsuarioController();
 	$usuarios = $usuarioControl->listaUsuarios();
 
 ?>

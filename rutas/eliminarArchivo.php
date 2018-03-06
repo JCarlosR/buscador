@@ -2,10 +2,9 @@
 	header('Content-type: application/json');
 	include '../controladores/ArchivoController.php';
 
-	//echo ($_FILES['archivo']['name']);
-	$archivo = $_FILES['archivo'];
+	$id = $_POST['id'];
 
 	$archivoControl = new ArchivoController();
-	echo $archivoControl->subirArchivo($archivo);
+	echo $archivoControl->eliminarArchivo($id);
 
 ?>
