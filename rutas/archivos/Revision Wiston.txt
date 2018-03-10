@@ -1,0 +1,7 @@
+Detalles de la corrección:
+- Seria conveniente que el menú se oculte en la vista de las películas.
+- Los enlaces no redireccionan nada en algunos casos sale pagina no encontrada y sale un mensaje de que la pagina no ha sido encontrada, se podría manejar una plantilla 404 NOT FOUND, o sino simplemente no colocar u ocultar los links que no redirijan nada.
+- En la parte del código, las asignaciones que se realiza en javascript se podría realizar de manera más limpia y sencilla, recordar que lo complicado no siempre es mejor.
+
+- La forma como editas los datos me parece interesante y válida, me hubiera gustado que uses el manejo de errores en laravel como el validator, pero tu lógica está correcta.
+galopante caminante

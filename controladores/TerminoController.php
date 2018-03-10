@@ -1,5 +1,5 @@
 <?php 
-	include "../modelos/termino.php";
+	include "../modelos/Termino.php";
 	include "../datos/conexion.php";
 
 	class TerminoController extends conexion {

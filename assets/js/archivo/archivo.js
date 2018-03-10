@@ -8,10 +8,42 @@ $(document).ready(function(){
 
 	$("#btn-create").on('click', showModalCreate);
 	$("#form-create").on('submit', createFile);
+
+    $("#cboOpcion").on('change', activeCboUsuarios);
 });
 
 var $modalDelete;
 var $modalCreate;
+
+function activeCboUsuarios () {
+    if ($(this).val() == 3) {
+        $.ajax({
+            url: '../rutas/traerUsuarios.php',
+            method: 'POST'
+        })
+        .done(function( response ) {
+            console.log(response);
+            if(response.error) {
+                console.log(response.usuarios);
+            }else{
+                $('#cboUsuarios').empty();
+                for (var i = 0; i < response.usuarios.length; i++) {
+                    $('#cboUsuarios').append($('<option>', {
+                        value: response.usuarios[i][0],
+                        text: response.usuarios[i][2]
+                    }));
+                    $('#cboUsuarios').multiSelect('refresh');
+                };
+                console.log(response.usuarios);
+            }
+
+        });
+        $("#divUsuarios").css("display","");
+    } else{
+
+        $("#divUsuarios").css("display","none");
+    };
+}
 
 function showModalDelete () {
 	event.preventDefault();
@@ -77,7 +109,7 @@ function createFile () {
             alert(response.message);
         }else{
             alert(response.message);
-            location.reload();
+            //location.reload();
         }
 
     });

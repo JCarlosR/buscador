@@ -1,5 +1,5 @@
 <?php 
-	include "../modelos/archivo.php";
+	include "../modelos/Archivo.php";
 	include "../datos/conexion.php";
 
 	class ArchivoController extends conexion {
@@ -7,7 +7,7 @@
 	        $archivo = new Archivo();
 	    }
 
-		function subirArchivo($archivo){
+		function subirArchivo($archivo, $opcion, $usuarios){
 
 			$name_file = $archivo["tmp_name"];
 			//echo ($target_file);
@@ -31,22 +31,37 @@
 				));
 
 				$idArchivo = $conn->lastInsertId();
-				$sql2 = $conn->prepare("INSERT INTO usuarios_archivos (usuarioId, archivoId)
-				SELECT id, $idArchivo from usuario");
-				$result2 = $sql2->execute();
-				
-				if($result){
-					return json_encode(['error' => false, 'message' => 'Archivo registrado correctamente.']);
-				
-				}else{
-					return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
-				
-				}
+				if ($opcion == 1) {
+					$sql2 = $conn->prepare("INSERT INTO usuarios_archivos (usuarioId, archivoId)
+					SELECT id, $idArchivo from usuario");
+					$result2 = $sql2->execute();
+					
+					if($result){
+						return json_encode(['error' => false, 'message' => 'Archivo registrado correctamente.']);
+					
+					}else{
+						return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
+					
+					}
 
-				if(!$result2){
-					return json_encode(['error' => true, 'message' => 'Ocurrió un error en la tabla intermedia. :(']);
-				
+					if(!$result2){
+						return json_encode(['error' => true, 'message' => 'Ocurrió un error en la tabla intermedia. :(']);
+					
+					}
+				} else {
+					if ($opcion == 3) {
+						for ($i=0; $i < count($usuarios) ; $i++) { 
+							$sql2 = $conn->prepare("INSERT INTO usuarios_archivos (usuarioId, archivoId)
+							SELECT id, $idArchivo from usuario WHERE id=:id");
+							$result2 = $sql2->execute(array(
+							    "id" => $usuarios[$i]
+							));
+						}
+						return json_encode(['error' => false, 'message' => 'Archivo registrado correctamente.']);
+					
+					}
 				}
+				
 			} else {
 				return json_encode(['error' => true, 'message' => '¡Posible ataque de subida de ficheros! :(']);
 			}
@@ -58,6 +73,9 @@
 			$sql = $conn->prepare('SELECT * FROM archivo');
 			$sql->execute();
 			$files = $sql->fetchAll();
+			$sql->closeCursor(); // opcional en MySQL, dependiendo del controlador de base de datos puede ser obligatorio
+			$sql = null; // obligado para cerrar la conexión
+			$conn = null;
 			return $files;
 		}
 

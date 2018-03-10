@@ -167,6 +167,7 @@
                                                 <td><?php echo $termino["termino"] ?></td>
                                                 <td>
                                                     <a href="#" data-delete="<?php echo $termino["id"];?>" data-termino="<?php echo $termino["termino"];?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                                    <a href="#" data-search="<?php echo $termino["id"];?>" data-termino="<?php echo $termino["termino"];?>" class="on-default remove-row"><i class="fa fa-search"></i></a>
                                                 </td>
                                             </tr>
                                         <?php 
@@ -175,6 +176,33 @@
                                         </tbody>
                                     </table>
                         		</div>
+                            </div><!-- end col -->
+
+                            
+
+                        </div>
+                        <!-- end row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-box">
+                                    <button id="btn-create" class="btn btn-info waves-effect waves-light m-b-5"> <i class="fa fa-plus m-r-5"></i> <span>Resultados de búsqueda</span> </button>
+                                    <table class="table table table-hover m-0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID del resultado</th>
+                                                <th>Término de busqueda</th>
+                                                <th>Archivo fuente</th>
+                                                <th>Fecha</th>
+                                                <th>Envío por correo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablaResultados">
+                                    
+                                            
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div><!-- end col -->
 
                             
@@ -221,6 +249,42 @@
                                 <button id="edit-user" type="submit" class="btn btn-sm btn-primary pull-left" >
                                     <i class="ace-icon fa fa-save"></i>
                                     Eliminar
+                                </button>
+                            </div>
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+            <div id="result-modal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="smaller lighter blue no-margin">Coincidencias</h3>
+                        </div>
+                        <form class="form-horizontal" role="form" id="form-result">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Término buscado </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" disabled=""  id="terminoBuscado" name="terminoBuscado" class="form-control col-xs-10 col-sm-10" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Coincidencias </label>
+                                    <br>
+                                    <div id="coincidencias"></div>
+                                    
+                                </div>
+
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
+                                    <i class="ace-icon fa fa-times"></i>
+                                    Close
                                 </button>
                             </div>
                         </form>

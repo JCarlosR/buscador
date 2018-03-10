@@ -1,5 +1,5 @@
 <?php 
-	include "../modelos/usuario.php";
+	include "../modelos/Usuario.php";
 	include "../datos/conexion.php";
 
 	class UsuarioController extends conexion {
@@ -149,6 +149,19 @@
 			
 			}
 		}
+
+		function traerUsuarios(){
+			$conn = $this->conectar();
+
+			$sql = $conn->prepare('SELECT * FROM usuario WHERE rol=1');
+			$sql->execute();
+			$users = $sql->fetchAll();
+			/*$sql->closeCursor(); // opcional en MySQL, dependiendo del controlador de base de datos puede ser obligatorio
+			$sql = null; // obligado para cerrar la conexión
+			$conn = null;*/
+			return json_encode(['error'=>false, 'usuarios'=>$users]);
+		}
+
 		/*
 		function getId($usuario,$pass){
 			$con = $this->conectar();

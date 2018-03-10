@@ -1,0 +1,11 @@
+POR MEJORAR:
+1. En las versiones actuales de php no se utiliza las sentencias
+	* mysql_connect sino mysqli_connect
+2. El objetivo final del curso es realizar un pequeño sistema maestro-detalle estos sistemas se caracterizan por tener una cabecera o encabezado y una lista de detalles lo cual es necesario identificar que datos poner en la cabecera y que datos poner en los detalles, por ejemplo en tu sistema "compras", necesita identificarse que el usuario es el que hace la compra y por lo tanto es el que debe de estar en la cabecera junto con la fecha y la tienda(opcional) en la que se realiza la compra. Luego en los detalles van los productos que se han comprado con la cantidad y precio unitario del producto.
+
+REVISION
+1. Tu sistema no permite concretar una compra, revisando tu archivo compras.php solo haces insert en la cabecera y no en los detalles.
+
+2. Los graficos estan mal inicializados o el jquery no esta funcionando bien, porque no se visualizan. Ademas sale un error el cual dice que Hightcharts solo recibe valores numericos en la data, y lo que le envias son cadenas de texto lo puedes revisar en este enlace https://www.highcharts.com/errors/14. Revisando tu codigo veo que puede ser por las sentencias mysql y no mysqli
+
+3. El uso de los modales es adecuado y me parece bien que hayas usado lo del carrito de compras.

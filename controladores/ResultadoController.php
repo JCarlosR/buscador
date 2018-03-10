@@ -1,29 +1,19 @@
 <?php 
-	//include "../modelos/searchTerm.php";
+	include "../modelos/ResultadoDetalle.php";
 	include "../datos/conexion.php";
 
 	class ResultadoController extends conexion {
-		/*public function __construct(){
-	        $archivo = new Termino();
-	    }*/
+		public function __construct(){
+	        $archivo = new ResultadoDetalle();
+	    }
 
-		function buscarTermino($termino, $archivo){
+		/*function buscarTermino($termino, $archivo){
 			if(trim($termino)=="")
 		        return json_encode(['error' => true, 'message' => 'Ingrese el termino correctamente. :(']);
 
 		    $conn = $this->conectar();
 		
-			/*$usuario = new Termino();
-			$usuario->termino = $termino;*/
-			/*$sql = $conn->prepare("INSERT INTO termino(termino) VALUES(:termino)");
-			$result = $sql->execute(array(
-			    "termino" => $usuario->termino
-			));
-			if($result){
-				return json_encode(['error' => false, 'message' => 'Termino registrado correctamente.']);
-			}else{
-				return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
-			}*/
+			
 			// si inicia con % se reemplazará por \w sino con un ^
 			if (substr($termino, 0, 1)=="%") {
 				$termino = substr_replace($termino, "\w",0,1);
@@ -55,7 +45,22 @@
 				    array_push($resultado, $cadenas[$j]);
 				}
 			}
+		}*/
+
+		public function coincidenciasResultado($idResultado)
+		{
+			$conn = $this->conectar();
+
+			$sql = $conn->prepare('SELECT coincidencia FROM resultado_detalle WHERE resultadoId=:resultadoId');
+			$sql->execute(array(
+			    "resultadoId" => $idResultado
+			));
+			$coincidencias = $sql->fetchAll();
+			
+			return json_encode(["error"=>false, "coincidencias"=>$coincidencias]);
 		}
+
+
 
 	}
 ?>
