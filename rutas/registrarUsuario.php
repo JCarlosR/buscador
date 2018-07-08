@@ -1,12 +1,11 @@
 <?php 
-	header('Content-type: application/json');
-	include '../controladores/UsuarioController.php';
 
-	$email = $_POST['email'];
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+header('Content-type: application/json');
+include '../controladores/UsuarioController.php';
 
-	$usuarioControl = new UsuarioController();
-	echo $usuarioControl->insertarUsuario($email, $username, $password);
+$email = $_POST['email'];
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-?>
+$controller = new UsuarioController();
+echo $controller->insertarUsuario($email, $username, $password);

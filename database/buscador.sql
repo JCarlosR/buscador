@@ -87,8 +87,8 @@ CREATE TABLE `termino` (
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `username` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL UNIQUE,
+  `username` varchar(50) DEFAULT NULL UNIQUE,
   `password` varchar(200) DEFAULT NULL,
   `rol` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1'

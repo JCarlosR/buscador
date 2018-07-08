@@ -7,9 +7,12 @@
 		public function __construct() {
 	    }
 
-		function insertarUsuario($email, $username,$password){
-			if(trim($username) == "" || trim($password) == "" || trim($email) == "")
-		        return json_encode(['error' => true, 'message' => 'Faltan datos por ingresar. :(']);
+		function insertarUsuario($email, $username,$password) {
+			if (trim($username) == "" || trim($password) == "" || trim($email) == "")
+		        return json_encode([
+		            'error' => true,
+                    'message' => 'Faltan datos por ingresar.'
+                ]);
 
 		    $conn = $this->conectar();
 		
@@ -20,23 +23,32 @@
 			$usuario->rol = 1;
 			$usuario->activo = true;
 
-			$sql = $conn->prepare("INSERT INTO usuario(email, username, password, rol, activo)
-			    VALUES(:email, :username, :password, :rol, :activo)");
-			$result = $sql->execute(array(
-			    "email" => $usuario->email,
-			    "username" => $usuario->username,
-			    "password" => $usuario->password,
-			    "rol" => $usuario->rol,
-			    "activo" => $usuario->activo
-			));
+			$query = "INSERT INTO usuario(email, username, password, rol, activo)
+			    VALUES(:email, :username, :password, :rol, :activo)";
 
-			if($result){
-				return json_encode(['error' => false, 'message' => 'Usuario registrado correctamente.']);
-			
-			}else{
-				return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
-			
-			}
+			$sql = $conn->prepare($query);
+			try {
+                $result = $sql->execute([
+                    "email" => $usuario->email,
+                    "username" => $usuario->username,
+                    "password" => $usuario->password,
+                    "rol" => $usuario->rol,
+                    "activo" => $usuario->activo
+                ]);
+                if ($result) {
+                    return json_encode([
+                        'error' => false,
+                        'message' => 'Usuario registrado correctamente.'
+                    ]);
+                }
+            } catch(PDOException $e) {
+                // $e->getMessage();
+            }
+
+            return json_encode([
+                'error' => true,
+                'message' => 'El nombre de usuario o el correo ya se encuentran en uso.'
+            ]);
 		}
 
 		function validarUsuario($username,$password) {

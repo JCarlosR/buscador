@@ -1,23 +1,23 @@
-$(document).ready(function(){
+$(function(){
 	$("#frmRegister").on('submit', registerUser);
 });
 
 function registerUser () {
 	event.preventDefault();
-	var url = '../rutas/registrarUsuario.php';
-    var data = $(this).serialize();
+
+	const url = '../rutas/registrarUsuario.php';
+    const data = $(this).serialize();
 
 	$.ajax({
-	 url: url,
-	 data: data,
-	 method: 'POST'
-	}).done(function( response ) {
-	    console.log(response);
-		if(response.error) {
+         url: url,
+         data: data,
+         method: 'POST'
+	}).done(response => {
+	    // console.log(response);
+		if (response.error) {
 			console.log(response.message);
 			alert(response.message);
-			
-		}else{
+		} else {
 			alert(response.message);
 		}
 	});
