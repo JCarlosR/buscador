@@ -3,8 +3,8 @@
 	include "../datos/conexion.php";
 
 	class UsuarioController extends conexion {
-		public function __construct(){
-	        $usuarios = new Usuario();
+
+		public function __construct() {
 	    }
 
 		function insertarUsuario($email, $username,$password){
@@ -39,33 +39,43 @@
 			}
 		}
 
-		function validarUsuario($username,$password){
-			if(trim($username) == "" || trim($password) == "")
-		        return json_encode(['error' => true, 'message' => 'Faltan datos por ingresar. :(']);
+		function validarUsuario($username,$password) {
+			if (trim($username) == "" || trim($password) == "")
+		        return json_encode([
+		            'error' => true,
+                    'message' => 'Faltan datos por ingresar.'
+                ]);
 
 			$conn = $this->conectar();
 			$usuario = new Usuario();
 			$usuario->username = $username;
 			$usuario->password = base64_encode($password);
 
-			$sql = $conn->prepare('SELECT * FROM usuario WHERE username = :username AND password = :password');
-			$sql->execute(array(
-					'username' => $usuario->username,
-					'password' => $usuario->password
-				));
-			$user = $sql->fetchAll();
+			$query = 'SELECT * FROM usuario WHERE username = :username AND password = :password';
+			$sql = $conn->prepare($query);
 
-	        if(count($user) > 0){
+			$sql->execute([
+                'username' => $usuario->username,
+                'password' => $usuario->password
+            ]);
+			$users = $sql->fetchAll();
+
+	        if (count($users) > 0) {
 	    		session_start();
-	    		foreach ($user as $row) {
+	    		foreach ($users as $row) {
 		            $_SESSION["id"] = $row['id'];
 		            $_SESSION["username"] = $row['username'];
 		            $_SESSION["rol"] = $row['rol'];
 	            }
-	            return json_encode(['error' => false, 'message' => 'Usuario registrado correctamente.', 'role' => $_SESSION["rol"] ]);
-	        }else{
-	            return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
-				
+	            return json_encode([
+	                'error' => false,
+                    'role' => $_SESSION["rol"]
+                ]);
+	        } else {
+	            return json_encode([
+	                'error' => true,
+                    'message' => 'Los datos ingresados son incorrectos.'
+                ]);
 	        }
 		}
 
@@ -183,4 +193,3 @@
 	        }
 		}*/
 	}
-?>

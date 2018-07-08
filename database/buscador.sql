@@ -99,8 +99,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `email`, `username`, `password`, `rol`, `activo`) VALUES
-(2, 'joryes1894@gmail.com', 'Jorge Gonzales', 'MTIzNDU2', 2, 1),
-(4, 'joryes17_1894@hotmail.com', 'Arcadio Castillo', 'MTIzNDU2', 1, 1);
+(1, 'hola@programacionymas.com', 'Juan Ramos', 'MTIzNDU2', 1, 1), -- 123456
+(2, 'joryes1894@gmail.com', 'Jorge Gonzales', 'MTIzNDU2', 2, 1); -- 123456
 
 -- --------------------------------------------------------
 

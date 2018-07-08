@@ -1,11 +1,10 @@
-<?php 
-	header('Content-type: application/json');
-	include '../controladores/UsuarioController.php';
+<?php
 
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+header('Content-type: application/json');
+include '../controladores/UsuarioController.php';
 
-	$usuarioControl = new UsuarioController();
-	echo $usuarioControl->validarUsuario($username, $password);
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-?>
+$controller = new UsuarioController();
+echo $controller->validarUsuario($username, $password);
