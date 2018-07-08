@@ -1,3 +1,3 @@
 <footer class="footer text-right">
-    2016 - 2017 © Adminto.
+    2018 - 2019 © Buscador de expresiones regulares.
 </footer>
