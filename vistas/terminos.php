@@ -116,7 +116,7 @@
                         <div class="modal-footer">
                             <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
                                 <i class="ace-icon fa fa-times"></i>
-                                Close
+                                Cerrar
                             </button>
                             <button id="edit-user" type="submit" class="btn btn-sm btn-primary pull-left" >
                                 <i class="ace-icon fa fa-save"></i>
@@ -157,7 +157,7 @@
                         <div class="modal-footer">
                             <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
                                 <i class="ace-icon fa fa-times"></i>
-                                Close
+                                Cerrar
                             </button>
                         </div>
                     </form>
@@ -188,7 +188,7 @@
                         <div class="modal-footer">
                             <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
                                 <i class="ace-icon fa fa-times"></i>
-                                Close
+                                Cerrar
                             </button>
                             <button id="create-term" type="submit" class="btn btn-sm btn-primary pull-left" >
                                 <i class="ace-icon fa fa-save"></i>
@@ -203,7 +203,6 @@
         <?php include 'rightsidebar.php'; ?>
 
         <?php include 'layouts/panel/scripts.php'; ?>
-        
         <script src="../assets/js/termino/termino.js"></script>
         
     </body>

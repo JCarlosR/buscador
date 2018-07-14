@@ -20,9 +20,9 @@ var $modalDelete;
 var $modalCreate;
 var $modalResult;
 
-function showDetails () {
-    $( "[name=coincidenciaResult]" ).each(function() {
-        $( this ).remove();
+function showDetails() {
+    $("[name=coincidenciaResult]").each(function() {
+        $(this).remove();
     });
     var idResultado = $(this).data('details');
     var termino = $(this).data('termino');
@@ -32,7 +32,9 @@ function showDetails () {
 
     $.ajax({
         url: url,
-        data: {idResultado:idResultado},
+        data: {
+            idResultado: idResultado
+        },
         method: 'POST'
     })
     .done(function( response ) {
@@ -66,28 +68,34 @@ function showDetails () {
     });
 }
 
-function searchTerm () {
+function searchTerm() {
     event.preventDefault();
-    $( "[name=resultadosBusqueda]" ).each(function() {
-        $( this ).remove();
+
+    $("[name=resultadosBusqueda]").each(function() {
+        $(this).remove();
     });
+
     var url = '../rutas/buscarTermino.php';
     var idTerm = $(this).data('search');
     var term = $(this).data('termino');
+
     $.ajax({
         url: url,
-        data: {idTerm:idTerm, term:term},
+        data: {
+            idTerm: idTerm, 
+            term:term
+        },
         method: 'POST'
     })
-    .done(function( response ) {
+    .done(function(response) {
         console.log(response);
-        if(response.error) {
+        if (response.error) {
             console.log(response.message);
             alert(response.message);
-        }else{
+        } else {
             if (response.results.length == 0) {
                 alert("Sin coincidencias");
-            }else{
+            } else {
                 console.log(response.results[0][0]);
                 for (var i = 0; i < response.results.length; i++) {
                     var body = '<tr name="resultadosBusqueda">'+
@@ -101,10 +109,10 @@ function searchTerm () {
                                     '</td>'+
                                 '</tr>';
                     $("#tablaResultados").append(body);
-                };            }
+                };            
+            }            
             
-            
-            //location.reload();
+            // location.reload();
         }
 
     });

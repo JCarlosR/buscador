@@ -114,7 +114,7 @@ function createFile() {
             alert(response.message);
         } else {
             alert(response.message);
-            //location.reload();
+            location.reload();
         }
     });
 }

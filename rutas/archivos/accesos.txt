@@ -1,9 +1,0 @@
-EDESCE
-45.55.236.152
-edesce123
-
-PAG WEB
-45.55.218.201
-edesce123
-
-sudo chmod 777 /var/www/edesce_peru/public/assets/certificados2

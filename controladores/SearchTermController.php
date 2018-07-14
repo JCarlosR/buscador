@@ -1,100 +1,128 @@
 <?php 
 include "../modelos/Resultado.php";
 include "../modelos/ResultadoDetalle.php";
+include "../datos/Conexion.php";
+
 session_start();
-include "../datos/conexion.php";
 
-class SearchTermController extends conexion {
+class SearchTermController extends Conexion {
 
-	function buscarTermino($termino, $idTerm){
-		$searchTerm = $termino;
-		if(trim($termino)=="")
-	        return json_encode(['error' => true, 'message' => 'Ingrese el termino correctamente. :(']);
+	public function buscarTermino($termino, $idTerm) {
+		$searchTerm = trim($termino);
+		
+		if ($searchTerm == "")
+	        return json_encode([
+	        	'error' => true, 
+	        	'message' => 'Ingrese el termino correctamente.'
+	        ]);
 
-	    $conn = $this->conectar();
+	    $con = $this->conectar();
 	
 		if (substr($termino, 0, 1)=="%") {
 			$termino = substr_replace($termino, "\w",0,1);
 		} else {
 			$termino = "^".$termino;
 		}
+		
 		if (substr($termino, -1)=="%") {
 			$termino = substr_replace($termino, "\w",-1,1);
 		} else {
 			$termino = $termino."$";
 		}
-		// Ahora a reemplazar los % => \w y * => .
-		$term = str_replace("%", "\w", $termino);
-		$term = str_replace("*", ".", $term);
-		$expreg = "/".$term."/";
+		
+		// Reemplazar % por \w y * por .
+		$regEx = str_replace("%", "\w", $termino);
+		$regEx = str_replace("*", ".", $regEx);
+		$regEx = "/$regEx/";
+
 		$resultado = [];
 
 		$idUsuario = $_SESSION['id'];
+		$files = $this->getAssociatedFiles($con, $idUsuario);
+		
+		foreach ($files as $file)
+			$this->searchInFile($con, $file, $idTerm, $regEx);
 
-		$sql = $conn->prepare('SELECT A.filename, A.id FROM usuarios_archivos UA 
-								INNER JOIN archivo A ON UA.archivoId = A.id 
-								WHERE UA.usuarioId=:usuarioId');
-		$sql->execute(array(
-			    "usuarioId" => $idUsuario
-			));
-		$files = $sql->fetchAll();
-
-		foreach ($files as $file) {
-			$rawContent = file("../rutas/archivos/".$file["filename"]);
-			$content = implode(" ",$rawContent);
-			$cadena = preg_replace("[\t|\n|\r|\n\r|\t\n]", "", $content);
-			$listas = explode(" ", $cadena);
-			$cadenas = [];
-			for ($i=0; $i < count($listas) ; $i++) { 
-				$aux = trim($listas[$i]);
-				array_push($cadenas, $aux);
-			}
-
-			// Insert de resultado
-			$resultado = new Resultado();
-			$resultado->terminoId = $idTerm;
-			$resultado->archivoId = $file["id"];
-			$resultado->fecha = date('Y/m/d H:i:s');
-		    $sql = $conn->prepare("INSERT INTO resultado(terminoId, archivoId, fecha) 
-		    						VALUES(:terminoId, :archivoId, :fecha)");
-			$result = $sql->execute(array(
-			    "terminoId" => $resultado->terminoId,
-			    "archivoId" => $resultado->archivoId,
-			    "fecha" => $resultado->fecha 
-			));
-			$idResultado = $conn->lastInsertId();
-			for ($j=0; $j < count($cadenas) ; $j++) { 
-				if (preg_match_all($expreg,$cadenas[$j],$coincidencias)){
-				    // Insert del resultado detalle
-					$resultadoDetalle = new ResultadoDetalle();
-					$resultadoDetalle->resultadoId = $idResultado;
-					$resultadoDetalle->coincidencia = $cadenas[$j];
-				    $sql = $conn->prepare("INSERT INTO resultado_detalle(resultadoId, coincidencia) 
-				    						VALUES(:resultadoId, :coincidencia)");
-					$result = $sql->execute(array(
-					    "resultadoId" => $resultadoDetalle->resultadoId,
-					    "coincidencia" => $resultadoDetalle->coincidencia 
-					));
-				    //array_push($resultado, $cadenas[$j]);
-				}
-			}
-
-		}
-
-		$sql = $conn->prepare('SELECT R.id, T.termino, A.filename, R.fecha FROM resultado R
+		$sql = $con->prepare('SELECT R.id, T.termino, A.filename, R.fecha FROM resultado R
 								INNER JOIN termino T
 								ON R.terminoId = T.id
 								INNER JOIN archivo A
 								ON R.archivoId = A.id
-								 WHERE R.terminoId=:terminoId');
-		$sql->execute(array(
+								WHERE R.terminoId=:terminoId');
+		$sql->execute([
 		    "terminoId" => $idTerm
-		));
+		]);
+
 		$results = $sql->fetchAll();
 		
-		return json_encode(['error' => false, 'results' => $results, 'termino' => $termino]);
-	
+		return json_encode([
+			'error' => false, 
+			'results' => $results, 
+			'termino' => $termino
+		]);	
 	}
 
+	private function getAssociatedFiles($con, $idUsuario) {
+		$sql = $con->prepare('SELECT A.filename, A.id 
+								FROM usuarios_archivos UA 
+								INNER JOIN archivo A ON UA.archivoId = A.id 
+								WHERE UA.usuarioId=:usuarioId');
+		$sql->execute([
+		    "usuarioId" => $idUsuario
+		]);
+
+		return $sql->fetchAll();
+	}
+
+	private function searchInFile($con, $file, $idTerm, $regEx)
+	{
+		$rawContent = file("../rutas/archivos/".$file["filename"]);
+		
+		$content = implode(" ", $rawContent);
+		$cadena = preg_replace("[\t|\n|\r|\n\r|\t\n]", "", $content);
+		$listas = explode(" ", $cadena);
+
+		/*
+		$listas = preg_replace("[\t|\n|\r|\n\r|\t\n]", "", $rawContent);
+		var_dump($listas);
+		die;
+		*/
+
+		$cadenas = array_map('trim', $listas);
+
+		// Resultado (cabecera)
+		$resultado = new Resultado();
+		$resultado->terminoId = $idTerm;
+		$resultado->archivoId = $file["id"];
+		$resultado->fecha = date('Y/m/d H:i:s');
+
+	    $sql = $con->prepare("INSERT INTO resultado(terminoId, archivoId, fecha) 
+	    						VALUES(:terminoId, :archivoId, :fecha)");
+
+		$result = $sql->execute([
+		    "terminoId" => $resultado->terminoId,
+		    "archivoId" => $resultado->archivoId,
+		    "fecha" => $resultado->fecha 
+		]);
+
+		$idResultado = $con->lastInsertId();
+		
+		foreach ($cadenas as $cadena) { 
+			if (preg_match_all($regEx, $cadena)) {
+			    // Resultado (detalle)
+				$detalle = new ResultadoDetalle();
+				$detalle->resultadoId = $idResultado;
+				$detalle->coincidencia = $cadena;
+			    
+			    $sql = $con->prepare("INSERT INTO resultado_detalle(resultadoId, coincidencia) 
+			    						VALUES(:resultadoId, :coincidencia)");
+				
+				$result = $sql->execute([
+				    "resultadoId" => $detalle->resultadoId,
+				    "coincidencia" => $detalle->coincidencia 
+				]);
+			}
+		}
+
+	}
 }
-?>

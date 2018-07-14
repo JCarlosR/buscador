@@ -43,9 +43,11 @@
                                     foreach ($archivos as $archivo) {
                                 ?>
                                     <tr>
-                                        <td><?php echo $archivo["filename"] ?></td>
+                                        <td><?= $archivo["filename"] ?></td>
                                         <td>
-                                            <a href="#" data-delete="<?php echo $archivo["id"];?>" data-archivo="<?php echo $archivo["filename"];?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                            <button class="btn btn-sm btn-danger" data-delete="<?= $archivo["id"] ?>" data-archivo="<?= $archivo["filename"] ?>">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php 
