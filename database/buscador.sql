@@ -31,7 +31,8 @@ USE `buscador`;
 DROP TABLE IF EXISTS `archivo`;
 CREATE TABLE `archivo` (
   `id` int(11) NOT NULL,
-  `filename` varchar(50) DEFAULT NULL
+  `filename` varchar(50) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -99,8 +100,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `email`, `username`, `password`, `rol`, `activo`) VALUES
-(1, 'hola@programacionymas.com', 'Juan Ramos', 'MTIzNDU2', 1, 1), -- 123456
-(2, 'joryes1894@gmail.com', 'Jorge Gonzales', 'MTIzNDU2', 2, 1); -- 123456
+(1, 'hola@programacionymas.com', 'Juan Ramos', 'MTIzNDU2', 2, 1), -- 123456 Admin
+(2, 'joryes1894@gmail.com', 'Jorge Gonzales', 'MTIzNDU2', 1, 1); -- 123456 User
 
 -- --------------------------------------------------------
 

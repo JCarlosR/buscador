@@ -157,7 +157,8 @@
 		}
 
 		function eliminarUsuario($id) {
-			if (trim($id) == "")
+			$id = trim($id);
+			if (!$id)
 		        return json_encode([
 		        	'error' => true, 
 		        	'message' => 'Escoja al usuario para eliminar.'
@@ -174,9 +175,9 @@
 			));
 
 			$sql2 = $conn->prepare("DELETE FROM usuario WHERE id=:id");
-			$result2 = $sql2->execute(array(
+			$result2 = $sql2->execute([
 			    "id" => $usuario->id
-			));
+			]);
 
 			if ($result2) {
 				return json_encode([
@@ -198,9 +199,7 @@
 			$sql = $conn->prepare('SELECT * FROM usuario WHERE rol=1');
 			$sql->execute();
 			$users = $sql->fetchAll();
-			/*$sql->closeCursor(); // opcional en MySQL, dependiendo del controlador de base de datos puede ser obligatorio
-			$sql = null; // obligado para cerrar la conexión
-			$conn = null;*/
+
 			return json_encode([
 				'error' => false, 
 				'usuarios' => $users

@@ -34,6 +34,7 @@
                             <table class="table table table-hover m-0">
                                 <thead>
                                     <tr>
+                                        <th>Fecha de subida</th>
                                         <th>Nombre de archivo</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -43,6 +44,7 @@
                                     foreach ($archivos as $archivo) {
                                 ?>
                                     <tr>
+                                        <td><?= $archivo["created_at"] ?></td>
                                         <td><?= $archivo["filename"] ?></td>
                                         <td>
                                             <button class="btn btn-sm btn-danger" data-delete="<?= $archivo["id"] ?>" data-archivo="<?= $archivo["filename"] ?>">
