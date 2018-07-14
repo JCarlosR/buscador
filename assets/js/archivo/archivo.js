@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	$modalDelete = $("#delete-modal");
-
 	$modalCreate = $("#create-modal");
 
 	$(document).on('click', '[data-delete]', showModalDelete);
@@ -15,38 +14,40 @@ $(document).ready(function(){
 var $modalDelete;
 var $modalCreate;
 
-function activeCboUsuarios () {
+function activeCboUsuarios() {
     if ($(this).val() == 3) {
         $.ajax({
             url: '../rutas/traerUsuarios.php',
             method: 'POST'
         })
-        .done(function( response ) {
+        .done(function(response) {
             console.log(response);
-            if(response.error) {
+            if (response.error) {
                 console.log(response.usuarios);
-            }else{
+            } else {
                 $('#cboUsuarios').empty();
                 for (var i = 0; i < response.usuarios.length; i++) {
                     $('#cboUsuarios').append($('<option>', {
                         value: response.usuarios[i][0],
                         text: response.usuarios[i][2]
-                    }));
-                    $('#cboUsuarios').multiSelect('refresh');
+                    }));                    
                 };
+                $('#cboUsuarios').multiSelect('refresh');
+
                 console.log(response.usuarios);
             }
-
         });
+
         $("#divUsuarios").css("display","");
-    } else{
+    } else {
 
         $("#divUsuarios").css("display","none");
     };
 }
 
-function showModalDelete () {
+function showModalDelete() {
 	event.preventDefault();
+
 	$id = $(this).data('delete');
 	$archivo = $(this).data('archivo');
 
@@ -54,21 +55,23 @@ function showModalDelete () {
 	$modalDelete.find('[id="archivo"]').val($archivo);
 
 	$modalDelete.modal({
-		show:true,
+		show: true,
 		backdrop:'static'
 	});
 }
 
-function deleteFile () {
+function deleteFile() {
 	event.preventDefault();
+
     var url = '../rutas/eliminarArchivo.php';
     var data = $("#form-delete").serializeArray();
+
     $.ajax({
         url: url,
         data: data,
         method: 'POST'
     })
-    .done(function( response ) {
+    .done(function(response) {
     	console.log(response);
         if(response.error) {
         	console.log(response.message);
@@ -81,20 +84,22 @@ function deleteFile () {
     });
 }
 
-function showModalCreate () {
+function showModalCreate() {
 	event.preventDefault();
 
 	$modalCreate.modal({
-		show:true,
+		show: true,
 		backdrop:'static'
 	});
 }
 
-function createFile () {
+function createFile() {
 	event.preventDefault();
+
     var url = '../rutas/subirArchivo.php'; 
 	var data = new FormData($("#form-create")[0]);
 	console.log(data);
+
     $.ajax({
         url: url,
         data: data,
@@ -102,15 +107,14 @@ function createFile () {
         contentType: false,
     	processData: false
     })
-    .done(function( response ) {
+    .done(function(response) {
     	console.log(response);
-        if(response.error) {
+        if (response.error) {
         	console.log(response.message);
             alert(response.message);
-        }else{
+        } else {
             alert(response.message);
             //location.reload();
         }
-
     });
 }

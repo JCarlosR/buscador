@@ -1,8 +1,7 @@
 <?php 
 	include "../modelos/Usuario.php";
-	include "../datos/conexion.php";
 
-	class UsuarioController extends conexion {
+	class UsuarioController extends Conexion {
 
 		public function __construct() {
 	    }
@@ -41,7 +40,7 @@
                         'message' => 'Usuario registrado correctamente.'
                     ]);
                 }
-            } catch(PDOException $e) {
+            } catch (PDOException $e) {
                 // $e->getMessage();
             }
 
@@ -51,7 +50,7 @@
             ]);
 		}
 
-		function validarUsuario($username,$password) {
+		function validarUsuario($username, $password) {
 			if (trim($username) == "" || trim($password) == "")
 		        return json_encode([
 		            'error' => true,
@@ -59,12 +58,14 @@
                 ]);
 
 			$conn = $this->conectar();
+
 			$usuario = new Usuario();
 			$usuario->username = $username;
 			$usuario->password = base64_encode($password);
 
-			$query = 'SELECT * FROM usuario WHERE username = :username AND password = :password';
+			$query = 'SELECT id, username, rol FROM usuario WHERE username = :username AND password = :password';
 			$sql = $conn->prepare($query);
+
 
 			$sql->execute([
                 'username' => $usuario->username,
@@ -94,15 +95,22 @@
 		function listaUsuarios(){
 			$conn = $this->conectar();
 
-			$sql = $conn->prepare('SELECT * FROM usuario');
+			$sql = $conn->prepare('SELECT id, email, username, rol, activo FROM usuario');
 			$sql->execute();
+
 			$users = $sql->fetchAll();
 			return $users;
 		}
 
-		function modificarUsuario($id, $email, $username,$password){
-			if(trim($username) == "" || trim($email) == "")
-		        return json_encode(['error' => true, 'message' => 'Faltan datos por ingresar. :(']);
+		function modificarUsuario($id, $email, $username, $password) {
+			$username = trim($username);
+			$email = trim($email);
+
+			if ($username == "" || $email == "")
+		        return json_encode([
+		        	'error' => true, 
+		        	'message' => 'Faltan datos por ingresar.'
+		        ]);
 
 		    $conn = $this->conectar();
 		
@@ -110,43 +118,50 @@
 			$usuario->id = $id;
 			$usuario->email = $email;
 			$usuario->username = $username;
-			$usuario->password = base64_encode($password);
+			
 			if ($password == "" || $password == null) {
 				$sql = $conn->prepare("UPDATE usuario SET email=:email, username=:username WHERE id=:id");
+				
 				$result = $sql->execute(array(
 				    "email" => $usuario->email,
 				    "username" => $usuario->username,
 				    "id" => $usuario->id
-				));
-				if($result){
-					return json_encode(['error' => false, 'message' => 'Usuario modificado correctamente.']);
+				));				
 				
-				}else{
-					return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
-				
-				}
 			} else {
+				$usuario->password = base64_encode($password);
+
 				$sql = $conn->prepare("UPDATE usuario SET email=:email, username=:username, password=:password WHERE id=:id");
+				
 				$result = $sql->execute(array(
 				    "email" => $usuario->email,
 				    "username" => $usuario->username,
 				    "password" => $usuario->password,
 				    "id" => $usuario->id
 				));
-				if($result){
-					return json_encode(['error' => false, 'message' => 'Usuario modificado correctamente.']);
 				
-				}else{
-					return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
-				
-				}
 			}
+
+			if ($result)
+				return json_encode([
+					'error' => false, 
+					'message' => 'Usuario modificado correctamente.'
+				]);				
+			
+			return json_encode([
+				'error' => true, 
+				'message' => 'Ocurrió un error inesperado.'
+			]);	
+		
 			
 		}
 
-		function eliminarUsuario($id){
-			if(trim($id) == "")
-		        return json_encode(['error' => true, 'message' => 'Escoja al usuario para eliminar. :(']);
+		function eliminarUsuario($id) {
+			if (trim($id) == "")
+		        return json_encode([
+		        	'error' => true, 
+		        	'message' => 'Escoja al usuario para eliminar.'
+		        ]);
 
 		    $conn = $this->conectar();
 		
@@ -163,16 +178,21 @@
 			    "id" => $usuario->id
 			));
 
-			if($result2){
-				return json_encode(['error' => false, 'message' => 'Usuario elimnado correctamente.']);
+			if ($result2) {
+				return json_encode([
+					'error' => false, 
+					'message' => 'Usuario elimnado correctamente.'
+				]);
 			
-			}else{
-				return json_encode(['error' => true, 'message' => 'Ocurrió un error inesperado. :(']);
-			
+			} else {
+				return json_encode([
+					'error' => true, 
+					'message' => 'Ocurrió un error inesperado.'
+				]);			
 			}
 		}
 
-		function traerUsuarios(){
+		function traerUsuarios() {
 			$conn = $this->conectar();
 
 			$sql = $conn->prepare('SELECT * FROM usuario WHERE rol=1');
@@ -181,7 +201,10 @@
 			/*$sql->closeCursor(); // opcional en MySQL, dependiendo del controlador de base de datos puede ser obligatorio
 			$sql = null; // obligado para cerrar la conexión
 			$conn = null;*/
-			return json_encode(['error'=>false, 'usuarios'=>$users]);
+			return json_encode([
+				'error' => false, 
+				'usuarios' => $users
+			]);
 		}
 
 		/*

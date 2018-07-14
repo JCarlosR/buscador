@@ -80,7 +80,7 @@
 
                         
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Usuario a elimnar </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Usuario a elimnar</label>
 
                                     <div class="col-sm-9">
                                         <input type="text" disabled=""  id="username" name="username" class="form-control col-xs-10 col-sm-10" />
@@ -92,7 +92,7 @@
                             <div class="modal-footer">
                                 <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
                                     <i class="ace-icon fa fa-times"></i>
-                                    Close
+                                    Cerrar
                                 </button>
                                 <button id="edit-user" type="submit" class="btn btn-sm btn-primary pull-left" >
                                     <i class="ace-icon fa fa-save"></i>

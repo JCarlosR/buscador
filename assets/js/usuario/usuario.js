@@ -19,15 +19,16 @@ var $modalEdit;
 var $modalDelete;
 var $modalCreate;
 
-function showModalEdit () {
+function showModalEdit() {
 	event.preventDefault();
+
 	$id = $(this).data('edit');
 	$email = $(this).data('email');
 	$username = $(this).data('username');
 
-	$modalEdit.find('[id="id"]').val($id);
-	$modalEdit.find('[id="email"]').val($email);
-	$modalEdit.find('[id="username"]').val($username);
+	$modalEdit.find('[name="id"]').val($id);
+	$modalEdit.find('[name="email"]').val($email);
+	$modalEdit.find('[name="username"]').val($username);
 
 	$modalEdit.modal({
 		show:true,
@@ -35,16 +36,18 @@ function showModalEdit () {
 	});
 }
 
-function editUser () {
+function editUser() {
 	event.preventDefault();
+
     var url = '../rutas/modificarUsuario.php';
     var data = $("#form-edit").serializeArray();
+
     $.ajax({
         url: url,
         data: data,
         method: 'POST'
     })
-    .done(function( response ) {
+    .done(function(response) {
     	console.log(response);
         if(response.error) {
         	console.log(response.message);
@@ -57,13 +60,14 @@ function editUser () {
     });
 }
 
-function showModalDelete () {
+function showModalDelete() {
 	event.preventDefault();
+
 	$id = $(this).data('delete');
 	$username = $(this).data('username');
 
-	$modalDelete.find('[id="id"]').val($id);
-	$modalDelete.find('[id="username"]').val($username);
+	$modalDelete.find('[name="id"]').val($id);
+	$modalDelete.find('[name="username"]').val($username);
 
 	$modalDelete.modal({
 		show:true,
@@ -71,21 +75,23 @@ function showModalDelete () {
 	});
 }
 
-function deleteUser () {
+function deleteUser() {
 	event.preventDefault();
+    
     var url = '../rutas/eliminarUsuario.php';
     var data = $("#form-delete").serializeArray();
+    
     $.ajax({
         url: url,
         data: data,
         method: 'POST'
     })
-    .done(function( response ) {
+    .done(function(response) {
     	console.log(response);
-        if(response.error) {
+        if (response.error) {
         	console.log(response.message);
             alert(response.message);
-        }else{
+        } else {
             alert(response.message);
             location.reload();
         }
@@ -93,7 +99,7 @@ function deleteUser () {
     });
 }
 
-function showModalCreate () {
+function showModalCreate() {
 	event.preventDefault();
 
 	$modalCreate.modal({
@@ -102,21 +108,23 @@ function showModalCreate () {
 	});
 }
 
-function createUser () {
+function createUser() {
 	event.preventDefault();
+    
     var url = '../rutas/registrarUsuario.php';
     var data = $("#form-create").serializeArray();
+    
     $.ajax({
         url: url,
         data: data,
         method: 'POST'
     })
-    .done(function( response ) {
+    .done(function(response) {
     	console.log(response);
-        if(response.error) {
+        if (response.error) {
         	console.log(response.message);
             alert(response.message);
-        }else{
+        } else {
             alert(response.message);
             location.reload();
         }

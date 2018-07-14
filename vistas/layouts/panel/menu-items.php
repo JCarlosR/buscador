@@ -41,6 +41,13 @@
             </a>
         </li>
 
+        <li>
+            <a href="configuracion.php" class="waves-effect">
+                <i class="zmdi zmdi-settings"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+
     </ul>
 
     <div class="clearfix"></div>

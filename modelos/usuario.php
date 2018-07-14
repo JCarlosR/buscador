@@ -1,8 +1,9 @@
 <?php
 
- class Usuario{
+include "../datos/conexion.php";
 
- 	// Atributos
+class Usuario {
+
 	public $id;
 	public $username;
 	public $email;
@@ -10,42 +11,23 @@
 	public $rol;
 	public $activo;
 
-	// Metodos
-	function get_id(){
-		return $this->id;
-	}
-	function set_id($id){
-		$this->id = $id;
-	}
-	
-	function get_username(){
-		return $this->username;
-	}
-	function set_username($username){
-		$this->username = $username;
-	}
-	
-	function get_password(){
-		return $this->password;
-	}
-	function set_password($password){
-		$this->password = $password;
+
+	public static function find($id) {
+        $conexion = new Conexion();
+        $con = $conexion->conectar();
+
+        $query = "SELECT 
+                id, email, username, rol 
+            FROM usuario 
+            WHERE id = :id";
+        
+        $sql = $con->prepare($query);
+
+        $sql->execute([
+            'id' => $id
+        ]);
+        
+        return $sql->fetch();
 	}
 
-	function get_email(){
-		return $this->email;
-	}
-	function set_email($email){
-		$this->email = $email;
-	}
-	
-	function get_rol(){
-		return $this->rol;
-	}
-	function set_rol($rol){
-		$this->rol = $rol;
-	}
  }
-
-
-?>

@@ -90,30 +90,32 @@
                         </div>
                         <form class="form-horizontal" role="form" id="form-edit">
                             <div class="modal-body">
-                                <input type="hidden" name="id" id="id">
+                                <input type="hidden" name="id">
 
                         
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Nuevo email </label>
+                                    <label class="col-sm-3 control-label no-padding-right">
+                                        Nuevo email
+                                    </label>
 
                                     <div class="col-sm-9">
-                                        <input type="text"  id="email" name="email" class="form-control col-xs-10 col-sm-10" />
+                                        <input type="text" name="email" class="form-control col-xs-10 col-sm-10" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nuevo usuario </label>
+                                    <label class="col-sm-3 control-label no-padding-right"> Nuevo usuario </label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" id="username" name="username" class=" form-control col-xs-10 col-sm-10" />
+                                        <input type="text" name="username" class=" form-control col-xs-10 col-sm-10" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Nueva contraseña (opcional) </label>
+                                    <label class="col-sm-3 control-label no-padding-right">Nueva contraseña (opcional) </label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" id="password" name="password" class="form-control col-xs-10 col-sm-10" />
+                                        <input type="text" name="password" class="form-control col-xs-10 col-sm-10" />
                                     </div>
                                 </div>
 
@@ -122,7 +124,7 @@
                             <div class="modal-footer">
                                 <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
                                     <i class="ace-icon fa fa-times"></i>
-                                    Close
+                                    Cerrar
                                 </button>
                                 <button id="edit-user" type="submit" class="btn btn-sm btn-primary pull-left" >
                                     <i class="ace-icon fa fa-save"></i>
@@ -144,14 +146,13 @@
                         </div>
                         <form class="form-horizontal" role="form" id="form-delete">
                             <div class="modal-body">
-                                <input type="hidden" name="id" id="id">
-
+                                <input type="hidden" name="id">
                         
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Usuario a elimnar </label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" disabled=""  id="username" name="username" class="form-control col-xs-10 col-sm-10" />
+                                        <input type="text" disabled name="username" class="form-control col-xs-10 col-sm-10" />
                                     </div>
                                 </div>
 

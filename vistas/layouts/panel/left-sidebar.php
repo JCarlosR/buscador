@@ -25,7 +25,7 @@
         </div>
         <!-- End User -->
 
-        <?php include 'sidebarleft.php'; ?>
+        <?php include 'layouts/panel/menu-items.php'; ?>
 
     </div>
 
