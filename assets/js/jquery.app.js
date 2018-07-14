@@ -167,8 +167,7 @@ function($) {
       $("body").trigger("resize");
 
       // right side-bar toggle
-      $('.right-bar-toggle').on('click', function(e){
-
+      $('.right-bar-toggle').on('click', function(e) {
           $('#wrapper').toggleClass('right-bar-enabled');
       });
 

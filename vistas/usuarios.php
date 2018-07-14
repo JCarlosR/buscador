@@ -61,8 +61,18 @@
                                         ?>
                                         
                                         <td>
-                                            <a href="#" data-edit="<?php echo $usuario["id"];?>" data-email="<?php echo $usuario["email"];?>" data-username="<?php echo $usuario["username"];?>" data class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" data-delete="<?php echo $usuario["id"];?>" data-username="<?php echo $usuario["username"];?>" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                            <button class="btn btn-sm btn-info"  
+                                                data-email="<?= $usuario["email"] ?>" 
+                                                data-username="<?= $usuario["username"] ?>" 
+                                                data-edit="<?= $usuario["id"] ?>">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+
+                                            <button class="btn btn-sm btn-danger" 
+                                                data-username="<?= $usuario["username"] ?>"
+                                                data-delete="<?= $usuario["id"] ?>">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php 

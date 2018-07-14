@@ -26,7 +26,7 @@
                 </li>
             </ul>
 
-            <!-- Right(Notification and Searchbox -->
+            <!-- Notification and Searchbox -->
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <!-- Notification -->
@@ -47,9 +47,10 @@
                 </li>
                 <li class="hidden-xs">
                     <form role="search" class="app-search">
-                        <input type="text" placeholder="Search..."
-                               class="form-control">
-                        <a href=""><i class="fa fa-search"></i></a>
+                        <input type="text" placeholder="Buscar ..." class="form-control">
+                        <a href="">
+                            <i class="fa fa-search"></i>
+                        </a>
                     </form>
                 </li>
             </ul>

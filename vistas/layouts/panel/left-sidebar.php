@@ -5,13 +5,17 @@
         <!-- User -->
         <div class="user-box">
             <div class="user-img">
-                <img src="../assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
-                <div class="user-status offline"><i class="zmdi zmdi-dot-circle"></i></div>
+                <img src="../assets/images/users/avatar-1.jpg" class="img-circle img-thumbnail img-responsive">
+                <div class="user-status online">
+                    <i class="zmdi zmdi-dot-circle"></i>
+                </div>
             </div>
-            <h5><a href="#"><?php echo $_SESSION['username'] ?></a> </h5>
+            <h5>
+                <a href="#"><?= $_SESSION['username'] ?></a>
+            </h5>
             <ul class="list-inline">
                 <li>
-                    <a href="#" >
+                    <a href="configuracion.php">
                         <i class="zmdi zmdi-settings"></i>
                     </a>
                 </li>

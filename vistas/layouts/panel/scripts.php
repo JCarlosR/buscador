@@ -19,10 +19,6 @@
 <![endif]-->
 <script src="../assets/plugins/jquery-knob/jquery.knob.js"></script>
 
-<!--Morris Chart-->
-<script src="../assets/plugins/morris/morris.min.js"></script>
-<script src="../assets/plugins/raphael/raphael-min.js"></script>
-
 <!-- App js -->
 <script src="../assets/js/jquery.core.js"></script>
 <script src="../assets/js/jquery.app.js"></script>

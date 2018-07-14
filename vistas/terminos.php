@@ -48,11 +48,11 @@
                                         <td><?= $termino["fechaCreacion"] ?></td>
                                         <td><?= $termino["termino"] ?></td>
                                         <td>
-                                            <button data-search="<?= $termino["id"];?>" data-termino="<?= $termino["termino"];?>" class="btn btn-sm btn-primary">
+                                            <button data-search="<?= $termino["id"];?>" data-termino="<?= $termino["termino"];?>" class="btn btn-sm btn-info">
                                                 <i class="fa fa-search"></i>
                                             </button>
 
-                                            <button data-delete="<?= $termino["id"] ?>" data-termino="<?= $termino["termino"] ?>" class="btn btn-sm btn-primary">
+                                            <button data-delete="<?= $termino["id"] ?>" data-termino="<?= $termino["termino"] ?>" class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
                                         </td>
@@ -84,10 +84,12 @@
                         </div>                    
 
                     </div>
-                </div> <!-- container -->
+                </div>
+                
+                <?php include 'footer.php'; ?>
             </div> <!-- content -->
 
-            <?php include 'footer.php'; ?>
+            <?php include 'rightsidebar.php'; ?>    
 
         </div>
 
@@ -199,8 +201,6 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
-
-        <?php include 'rightsidebar.php'; ?>
 
         <?php include 'layouts/panel/scripts.php'; ?>
         <script src="../assets/js/termino/termino.js"></script>
