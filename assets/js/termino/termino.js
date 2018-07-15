@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function() {
 	$modalDelete = $("#delete-modal");
 
 	$modalCreate = $("#create-modal");
@@ -37,20 +37,23 @@ function showDetails() {
         },
         method: 'POST'
     })
-    .done(function( response ) {
+    .done(function(response) {
         console.log(response);
-        if(response.error) {
-            console.log(response.coincidencias.length);
+        if (response.error) {
+            console.log(response);
             alert(response.message);
-        }else{
+        } else {
             if (response.coincidencias.length == 0) {
                 alert("Sin coincidencias");
-            }else{
-                //console.log(response.coin);
-                for (var i = 0; i < response.coincidencias.length; i++) {
-                    var body = '<input type="text" value="'+response.coincidencias[i][0]+'" disabled="" name="coincidenciaResult" class="form-control col-xs-10 col-sm-10" />';
-                    $("#coincidencias").append(body);
-                };
+            } else {
+                //console.log(response);
+                var coincidences = '';
+                for (var i=0; i<response.coincidencias.length; i++) {
+                    coincidences += '<input type="text" value="' + response.coincidencias[i][0]
+                                    + '" disabled name="coincidenciaResult" class="form-control" />';
+                }
+
+                $("#coincidencias").append(coincidences);
 
                 $modalResult.modal({
                     show:true,
@@ -58,11 +61,8 @@ function showDetails() {
                 });
 
             }
-            
-            
-            
 
-            //location.reload();
+            // location.reload();
         }
 
     });
@@ -104,8 +104,9 @@ function searchTerm() {
                                     '<td>'+response.results[i][2]+'</td>'+
                                     '<td>'+response.results[i][3]+'</td>'+
                                     '<td>'+
-                                        '<a href="#" data-details="'+response.results[i][0]+'" data-termino="'+response.results[i][1]+'" class="on-default remove-row"><i class="fa fa-eye"></i></a>'+
-                                        '<a href="#" data-send="'+response.results[i][0]+'" data-termino="" class="on-default remove-row"><i class="fa fa-send-o"></i></a>'+
+                                        '<button data-details="'+response.results[i][0]+'" data-termino="'+response.results[i][1]+'" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></button>'+
+                                        ' ' +                                        
+                                        '<button data-send="'+response.results[i][0]+'" data-termino="" class="btn btn-sm btn-info"><i class="fa fa-send-o"></i></button>'+
                                     '</td>'+
                                 '</tr>';
                     $("#tablaResultados").append(body);
@@ -118,7 +119,7 @@ function searchTerm() {
     });
 }
 
-function showModalDelete () {
+function showModalDelete() {
 	event.preventDefault();
 	$id = $(this).data('delete');
 	$termino = $(this).data('termino');
@@ -132,7 +133,7 @@ function showModalDelete () {
 	});
 }
 
-function deleteTerm () {
+function deleteTerm() {
 	event.preventDefault();
     var url = '../rutas/eliminarTermino.php';
     var data = $("#form-delete").serializeArray();
@@ -141,7 +142,7 @@ function deleteTerm () {
         data: data,
         method: 'POST'
     })
-    .done(function( response ) {
+    .done(function(response) {
     	console.log(response);
         if(response.error) {
         	console.log(response.message);
@@ -154,7 +155,7 @@ function deleteTerm () {
     });
 }
 
-function showModalCreate () {
+function showModalCreate() {
 	event.preventDefault();
 
 	$modalCreate.modal({
@@ -163,7 +164,7 @@ function showModalCreate () {
 	});
 }
 
-function createTerm () {
+function createTerm() {
 	event.preventDefault();
     var url = '../rutas/guardarTermino.php'; 
 	var data = $("#form-create").serializeArray();

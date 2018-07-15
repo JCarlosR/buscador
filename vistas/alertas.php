@@ -17,7 +17,7 @@
         <div id="wrapper">
 
             <?php 
-                $pageTitle = 'Términos';
+                $pageTitle = 'Alertas';
                 include 'layouts/panel/topbar.php' 
             ?>
 
