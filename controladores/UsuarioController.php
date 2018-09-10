@@ -35,6 +35,11 @@
                     "activo" => $usuario->activo
                 ]);
                 if ($result) {
+                    mail(
+                        $usuario->email,
+                        "Bienvenido!",
+                        "Gracias por registrarte en la aplicación Buscador."
+                    );
                     return json_encode([
                         'error' => false,
                         'message' => 'Usuario registrado correctamente.'
@@ -63,7 +68,7 @@
 			$usuario->username = $username;
 			$usuario->password = base64_encode($password);
 
-			$query = 'SELECT id, username, rol FROM usuario WHERE username = :username AND password = :password';
+			$query = 'SELECT id, username, rol FROM usuario WHERE username = :username AND password = :password LIMIT 1';
 			$sql = $conn->prepare($query);
 
 
@@ -80,6 +85,7 @@
 		            $_SESSION["username"] = $row['username'];
 		            $_SESSION["rol"] = $row['rol'];
 	            }
+
 	            return json_encode([
 	                'error' => false,
                     'role' => $_SESSION["rol"]

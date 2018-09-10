@@ -1,6 +1,6 @@
 <?php
 
-include "../datos/conexion.php";
+include "../datos/Conexion.php";
 
 class Usuario {
 

@@ -1,6 +1,6 @@
 <?php 
 	include "../modelos/Archivo.php";
-	include "../datos/conexion.php";
+	include "../datos/Conexion.php";
 
 	class ArchivoController extends conexion {
 		public function __construct(){

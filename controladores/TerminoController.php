@@ -1,6 +1,6 @@
 <?php 
 	include "../modelos/Termino.php";
-	include "../datos/conexion.php";
+	include "../datos/Conexion.php";
 
 	class TerminoController extends conexion {
 		public function __construct(){

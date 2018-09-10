@@ -1,6 +1,6 @@
 <?php 
 	include "../modelos/ResultadoDetalle.php";
-	include "../datos/conexion.php";
+	include "../datos/Conexion.php";
 
 	class ResultadoController extends conexion {
 		public function __construct(){
