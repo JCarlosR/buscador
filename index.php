@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="form-group m-t-30 m-b-0">
-                            <a href="page-recoverpw.html" class="text-muted">
+                            <a href="./vistas/recuperar.php" class="text-muted">
                                 <i class="fa fa-lock m-r-5"></i> ¿Olvidaste tu contraseña?
                             </a>
                         </div>

@@ -15,34 +15,19 @@
             </div>
         	<div class="m-t-40 card-box">
                 <div class="text-center">
-                    <h4 class="text-uppercase font-bold m-b-0">Registro</h4>
+                    <h4 class="text-uppercase font-bold m-b-0">Recuperar contraseña</h4>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal m-t-20" id="frmRegister">
+                    <form class="form-horizontal m-t-20" id="frmRecover">
 
 						<div class="form-group">
-                            <input class="form-control" name="email" type="email" required="" placeholder="Email">
-						</div>
-
-						<div class="form-group">
-                            <input class="form-control" name="username" type="text" required placeholder="Username">
-						</div>
-
-						<div class="form-group">
-                            <input class="form-control" name="password" type="password" required placeholder="Password">
-						</div>
-
-						<div class="form-group">
-                            <div class="checkbox checkbox-custom">
-									<input id="checkbox-signup" type="checkbox" checked="checked">
-									<label for="checkbox-signup">Acepto los <a href="#">Términos y Condiciones</a>.</label>
-								</div>
+                            <input class="form-control" name="email" type="email" required placeholder="Email">
 						</div>
 
 						<div class="form-group text-center m-t-40">
 							<div class="col-xs-12">
 								<button class="btn btn-custom btn-bordred btn-block waves-effect waves-light" type="submit">
-									Confirmar registro
+									Enviar enlace de recuperación
 								</button>
 							</div>
 						</div>
@@ -60,10 +45,9 @@
                     </a>
                 </p>
             </div>
-
         </div>
 
         <?php include '../vistas/layouts/simple/scripts.php' ?>
-        <script src="../assets/js/register/register.js"></script>
+        <script src="../assets/js/recuperar/recuperar.js"></script>
 	</body>
 </html>

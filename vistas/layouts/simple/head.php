@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Buscador de archivos simple">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="<?= $prefixAssets ?>assets/images/favicon.ico">
     <title>Buscador</title>
 
     <link href="<?= $prefixAssets ?>assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -24,5 +24,5 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
-    <script src="assets/js/modernizr.min.js"></script>
+    <script src="<?= $prefixAssets ?>assets/js/modernizr.min.js"></script>
 </head>

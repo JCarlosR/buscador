@@ -10,7 +10,7 @@ class Usuario {
 	public $password;
 	public $rol;
 	public $activo;
-
+    public $reset_password_token;
 
 	public static function find($id) {
         $conexion = new Conexion();
