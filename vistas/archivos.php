@@ -4,8 +4,7 @@
 
     if (!$sessionStarted) {
         header('Location: ../index.php');
-    }
- ?>
+    } ?>
 <!DOCTYPE html>
 <html>
     <?php include 'layouts/panel/head.php'; ?>
@@ -79,7 +78,7 @@
 
                         
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Archivo a eliminar </label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Archivo a eliminar</label>
 
                                     <div class="col-sm-9">
                                         <input type="text" disabled=""  id="archivo" name="archivo" class="form-control col-xs-10 col-sm-10" />
@@ -169,13 +168,9 @@
             </div>
 
             <?php include 'rightsidebar.php'; ?>
-
         </div>
-        <!-- END wrapper -->
 
         <?php include 'layouts/panel/scripts.php' ?>
-        <script src="../assets/plugins/multiselect/js/jquery.multi-select.js"></script>
         <script src="../assets/js/archivo/archivo.js"></script>
-
     </body>
 </html>

@@ -36,7 +36,8 @@
 
                                 <div class="form-group">
                                     <label for="username">Nombre de usuario</label>
-                                    <input type="text" name="username" value="<?= $user['username'] ?>" class="form-control">
+                                    <input type="text" name="username" value="<?= $user['username'] ?>"
+                                           class="form-control" autocomplete="new-password">
                                 </div>
 
                                 <div class="form-group">
@@ -46,7 +47,8 @@
 
                                 <div class="form-group">
                                     <label for="password">Contraseña</label>
-                                    <input type="password" name="password" value="" class="form-control">
+                                    <input type="password" name="password" value="" class="form-control"
+                                           autocomplete="new-password">
                                     <p class="text-help">Ingresar sólo si desea modificar su contraseña.</p>
                                 </div>
 
@@ -62,15 +64,12 @@
                 </div> <!-- content -->
 
                 <?php include 'footer.php'; ?>
-
             </div>
 
 
-
             <?php include 'rightsidebar.php'; ?>
-
         </div>
-        <!-- END wrapper -->
+
 
         <?php include 'layouts/panel/scripts.php' ?>
         <script src="../assets/js/configuracion/index.js"></script>
