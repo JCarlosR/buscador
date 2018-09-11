@@ -38,7 +38,7 @@
         </li>
 
         <li>
-            <a href="#" class="waves-effect">
+            <a href="alertas.php" class="waves-effect">
                 <i class="zmdi zmdi-alert-circle"></i>
                 <span>Alertas</span>
             </a>

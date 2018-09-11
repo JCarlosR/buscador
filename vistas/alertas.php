@@ -10,10 +10,8 @@
 <html>
     <?php include 'layouts/panel/head.php'; ?>
 
-
     <body class="fixed-left">
 
-        <!-- Begin page -->
         <div id="wrapper">
 
             <?php 
@@ -22,16 +20,16 @@
             ?>
 
             <?php include 'layouts/panel/left-sidebar.php' ?>
-
-            <?php include '../rutas/listaTerminos.php'; ?>
+            <?php include '../rutas/listaResultados.php'; ?>
 
 
             <div class="content-page">
                 <div class="content">
                     <div class="container">
 
+                        <?php
+                        /*
                         <div class="card-box">
-                            <button id="btn-create" class="btn btn-info waves-effect waves-light m-b-5"> <i class="fa fa-plus m-r-5"></i> <span>Agregar término</span> </button>
                             <table class="table table table-hover m-0">
                                 <thead>
                                     <tr>
@@ -41,7 +39,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php 
+                                <?php
                                     foreach ($terminos as $termino) {
                                 ?>
                                     <tr>
@@ -51,34 +49,47 @@
                                             <button data-search="<?= $termino["id"];?>" data-termino="<?= $termino["termino"];?>" class="btn btn-sm btn-info">
                                                 <i class="fa fa-search"></i>
                                             </button>
-
-                                            <button data-delete="<?= $termino["id"] ?>" data-termino="<?= $termino["termino"] ?>" class="btn btn-sm btn-danger">
-                                                <i class="fa fa-trash-o"></i>
-                                            </button>
                                         </td>
                                     </tr>
-                                <?php 
+                                <?php
                                     }
                                 ?>
                                 </tbody>
                             </table>
                 		</div>
+                        */
+                        ?>
 
                         <div class="card-box">
-                            <h4 class="header-title mt-0">Resultados de búsqueda</h4>
+                            <h4 class="header-title mt-0">Mi lista de alertas</h4>
 
                             <table class="table table table-hover m-0">
                                 <thead>
                                     <tr>
-                                        <th># Resultado</th>
+                                        <th>Detectado</th>
                                         <th>Término de busqueda</th>
-                                        <th>Archivo fuente</th>
-                                        <th>Fecha</th>
-                                        <th>Envío por correo</th>
+                                        <th>Buscado en</th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tablaResultados">                       
-                                
+                                <tbody id="tablaResultados">
+                                <?php foreach ($resultados as $resultado): ?>
+                                    <tr>
+                                        <td><?= $resultado["fecha"] ?></td>
+                                        <td><?= $resultado["termino"] ?></td>
+                                        <td><?= $resultado["filename"] ?></td>
+                                        <td>
+                                            <button data-details="<?= $resultado["id"] ?>"
+                                                    data-termino="<?= $resultado["termino"] ?>"
+                                                    class="btn btn-sm btn-info">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            <button data-send="<?= $resultado["id"] ?>" class="btn btn-sm btn-info">
+                                                <i class="fa fa-send-o"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>                    
@@ -89,45 +100,7 @@
                 <?php include 'footer.php'; ?>
             </div> <!-- content -->
 
-            <?php include 'rightsidebar.php'; ?>    
-
-        </div>
-
-        <div id="delete-modal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="smaller lighter blue no-margin">Eliminar término</h3>
-                    </div>
-                    <form class="form-horizontal" role="form" id="form-delete">
-                        <div class="modal-body">
-                            <input type="hidden" name="id" id="id">
-
-                    
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Término a eliminar</label>
-
-                                <div class="col-sm-9">
-                                    <input type="text" disabled=""  id="termino" name="termino" class="form-control col-xs-10 col-sm-10" />
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
-                                <i class="ace-icon fa fa-times"></i>
-                                Cerrar
-                            </button>
-                            <button id="edit-user" type="submit" class="btn btn-sm btn-primary pull-left" >
-                                <i class="ace-icon fa fa-save"></i>
-                                Eliminar
-                            </button>
-                        </div>
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
+            <?php include 'rightsidebar.php'; ?>
         </div>
 
         <div id="result-modal" class="modal fade" tabindex="-1">
@@ -143,7 +116,6 @@
                                 <label class="col-sm-3 control-label no-padding-right">
                                     Término buscado
                                 </label>
-
                                 <div class="col-sm-9">
                                     <input type="text" disabled id="terminoBuscado" name="terminoBuscado" class="form-control col-xs-10 col-sm-10" />
                                 </div>
@@ -167,43 +139,8 @@
             </div><!-- /.modal-dialog -->
         </div>
 
-        <div id="create-modal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="smaller lighter blue no-margin">Crear término</h3>
-                    </div>
-                    <form class="form-horizontal" role="form" id="form-create" method="POST">
-                        <div class="modal-body">
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Introduzca término </label>
-
-                                <div class="col-sm-9">
-                                    <input type="input" name="termino" id="termino" class="form-control">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
-                                <i class="ace-icon fa fa-times"></i>
-                                Cerrar
-                            </button>
-                            <button id="create-term" type="submit" class="btn btn-sm btn-primary pull-left" >
-                                <i class="ace-icon fa fa-save"></i>
-                                Guardar
-                            </button>
-                        </div>
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-
         <?php include 'layouts/panel/scripts.php'; ?>
-        <script src="../assets/js/termino/termino.js"></script>
+        <script src="../assets/js/termino/alerta.js"></script>
         
     </body>
 </html>

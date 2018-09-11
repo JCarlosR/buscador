@@ -1,10 +1,9 @@
 <?php 
-	header('Content-type: application/json');
-	include '../controladores/ResultadoController.php';
 
-	$idResultado = $_POST['idResultado'];
+header('Content-type: application/json');
+include '../controladores/ResultadoController.php';
 
-	$resultadoControl = new ResultadoController();
-	echo $resultadoControl->coincidenciasResultado($idResultado);
+$idResultado = $_POST['idResultado'];
 
-?>
+$resultadoControl = new ResultadoController();
+echo $resultadoControl->coincidenciasResultado($idResultado);

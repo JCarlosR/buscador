@@ -48,10 +48,6 @@
                                         <td><?= $termino["fechaCreacion"] ?></td>
                                         <td><?= $termino["termino"] ?></td>
                                         <td>
-                                            <button data-search="<?= $termino["id"];?>" data-termino="<?= $termino["termino"];?>" class="btn btn-sm btn-info">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-
                                             <button data-delete="<?= $termino["id"] ?>" data-termino="<?= $termino["termino"] ?>" class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
@@ -63,25 +59,6 @@
                                 </tbody>
                             </table>
                 		</div>
-
-                        <div class="card-box">
-                            <h4 class="header-title mt-0">Resultados de búsqueda</h4>
-
-                            <table class="table table table-hover m-0">
-                                <thead>
-                                    <tr>
-                                        <th># Resultado</th>
-                                        <th>Término de busqueda</th>
-                                        <th>Archivo fuente</th>
-                                        <th>Fecha</th>
-                                        <th>Envío por correo</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaResultados">                       
-                                
-                                </tbody>
-                            </table>
-                        </div>                    
 
                     </div>
                 </div>

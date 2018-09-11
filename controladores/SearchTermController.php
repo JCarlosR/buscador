@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 include "../modelos/Resultado.php";
 include "../modelos/ResultadoDetalle.php";
 include "../datos/Conexion.php";

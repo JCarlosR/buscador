@@ -1,8 +1,6 @@
-<!-- ========== Left Sidebar Start ========== -->
 <div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
 
-        <!-- User -->
         <div class="user-box">
             <div class="user-img">
                 <img src="../assets/images/users/avatar-1.jpg" class="img-circle img-thumbnail img-responsive">
@@ -27,11 +25,8 @@
                 </li>
             </ul>
         </div>
-        <!-- End User -->
 
         <?php include 'layouts/panel/menu-items.php'; ?>
-
     </div>
 
 </div>
-<!-- Left Sidebar End -->
