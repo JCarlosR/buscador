@@ -81,10 +81,14 @@
                                         <td>
                                             <button data-details="<?= $resultado["id"] ?>"
                                                     data-termino="<?= $resultado["termino"] ?>"
+                                                    data-title="Ver coincidencias encontradas"
+                                                    data-toggle="tooltip"
                                                     class="btn btn-sm btn-info">
                                                 <i class="fa fa-eye"></i>
                                             </button>
-                                            <button data-send="<?= $resultado["id"] ?>" class="btn btn-sm btn-info">
+                                            <button data-send="<?= $resultado["id"] ?>" class="btn btn-sm btn-info"
+                                                    data-title="Compartir por correo"
+                                                    data-toggle="tooltip">
                                                 <i class="fa fa-send-o"></i>
                                             </button>
                                         </td>
@@ -141,6 +145,5 @@
 
         <?php include 'layouts/panel/scripts.php'; ?>
         <script src="../assets/js/termino/alerta.js"></script>
-        
     </body>
 </html>

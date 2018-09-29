@@ -5,6 +5,8 @@ $(function() {
 
     // $(document).on('click', '[data-search]', searchTerm);
     $(document).on('click', '[data-details]', showDetails);
+
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 function showDetails() {
