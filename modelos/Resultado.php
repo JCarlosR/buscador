@@ -1,6 +1,6 @@
 <?php
 
-class Resultado{
+class Resultado {
 
 	public $id;
 	public $terminoId;

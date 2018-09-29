@@ -1,6 +1,6 @@
 <?php
 
- class ResultadoDetalle{
+ class ResultadoDetalle {
 
  	// Atributos
 	public $id;
