@@ -55,7 +55,8 @@ DROP TABLE IF EXISTS `termino`;
 CREATE TABLE `termino` (
   `id` int(11) NOT NULL,
   `termino` varchar(50) NOT NULL,
-  `fechaCreacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fechaCreacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `usuarioId` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

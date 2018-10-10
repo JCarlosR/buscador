@@ -13,7 +13,6 @@
 
     <body class="fixed-left">
 
-        <!-- Begin page -->
         <div id="wrapper">
 
             <?php 
@@ -37,6 +36,9 @@
                                     <tr>
                                         <th>Fecha de creación</th>
                                         <th>Término de búsqueda</th>
+                                        <?php if ($_SESSION['rol']==2): ?>
+                                            <th>Usuario</th>
+                                        <?php endif; ?>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -47,6 +49,9 @@
                                     <tr>
                                         <td><?= $termino["fechaCreacion"] ?></td>
                                         <td><?= $termino["termino"] ?></td>
+                                        <?php if ($_SESSION['rol']==2): ?>
+                                            <td><?= $termino["username"] ?></td>
+                                        <?php endif; ?>
                                         <td>
                                             <button data-delete="<?= $termino["id"] ?>" data-termino="<?= $termino["termino"] ?>" class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash-o"></i>
@@ -155,8 +160,9 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Introduzca término </label>
-
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
+                                    Introduzca término
+                                </label>
                                 <div class="col-sm-9">
                                     <input type="input" name="termino" id="termino" class="form-control">
                                 </div>

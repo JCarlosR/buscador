@@ -7,14 +7,22 @@
 		function listaTerminos() {
 			$conn = $this->conectar();
 
-			$sql = $conn->prepare('SELECT * FROM termino');
-			$sql->execute();
-			$termino = $sql->fetchAll();
+			// admin
+			if ($_SESSION['rol']==2)
+			    $query = 'SELECT * FROM termino t JOIN usuario u ON t.usuarioId=u.id';
+			else // user
+                $query = 'SELECT * FROM termino WHERE usuarioId = :id';
 
-			return $termino;
+			$sql = $conn->prepare($query);
+			$sql->execute([
+			    'id' => $_SESSION["id"]
+            ]);
+			return $sql->fetchAll();
 		}
 
 		function insertarTermino($terminoB) {
+		    session_start();
+
 			if (trim($terminoB)=="")
 		        return json_encode([
 		            'error' => true,
@@ -27,11 +35,15 @@
 			$termino->termino = $terminoB;
 			$termino->fechaCreacion = date('Y/m/d H:i:s');
 
-			$sql = $conn->prepare("INSERT INTO termino(termino, fechaCreacion) VALUES(:termino, :fechaCreacion)");
-			$result = $sql->execute(array(
+			$query = "INSERT INTO termino(termino, fechaCreacion, usuarioId) 
+                      VALUES(:termino, :fechaCreacion, :usuarioId)";
+
+			$sql = $conn->prepare($query);
+			$result = $sql->execute([
 			    "termino" => $termino->termino,
-			    "fechaCreacion" => $termino->fechaCreacion
-			));
+			    "fechaCreacion" => $termino->fechaCreacion,
+                "usuarioId" => $_SESSION["id"]
+			]);
 
 			if ($result) {
 				return json_encode([
