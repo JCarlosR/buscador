@@ -13,7 +13,7 @@
                     FROM resultado_detalle D
                     JOIN resultado R ON D.resultadoId = R.id
                     JOIN termino T ON R.terminoId = T.id
-                    JOIN usuario U ON t.usuarioId = U.id
+                    JOIN usuario U ON T.usuarioId = U.id
                     JOIN archivo A ON R.archivoId = A.id';
             } else { // user
                 $query = 'SELECT D.id, T.termino, A.filename, R.fecha, D.coincidencia
