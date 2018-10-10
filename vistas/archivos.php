@@ -122,8 +122,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Subir archivo </label>
-
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
+                                        Subir archivo
+                                    </label>
                                     <div class="col-sm-9">
                                         <select name="cboOpcion" id="cboOpcion" class="form-control">
                                             <option value="1">Todos</option>

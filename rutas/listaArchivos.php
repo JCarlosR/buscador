@@ -1,11 +1,6 @@
 <?php 
-	include '../controladores/ArchivoController.php';
-	//include '../controladores/UsuarioController.php';
 
-	$archivoControl = new ArchivoController();
-	$archivos = $archivoControl->listaArchivos();
+include '../controladores/ArchivoController.php';
 
-	/*$usuarioControl = new UsuarioController();
-	$usuarios = $usuarioControl->traerUsuarios();*/
-
-?>
+$archivoControl = new ArchivoController();
+$archivos = $archivoControl->listaArchivos();

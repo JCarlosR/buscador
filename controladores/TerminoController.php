@@ -1,6 +1,6 @@
 <?php 
 	include "../modelos/Termino.php";
-	include "../datos/Conexion.php";
+    include "SearchTermController.php";
 
 	class TerminoController extends Conexion {
 
@@ -9,7 +9,7 @@
 
 			// admin
 			if ($_SESSION['rol']==2)
-			    $query = 'SELECT * FROM termino t JOIN usuario u ON t.usuarioId=u.id';
+			    $query = 'SELECT t.*, u.username FROM termino t JOIN usuario u ON t.usuarioId=u.id';
 			else // user
                 $query = 'SELECT * FROM termino WHERE usuarioId = :id';
 
@@ -20,10 +20,10 @@
 			return $sql->fetchAll();
 		}
 
-		function insertarTermino($terminoB) {
+		function insertarTermino($term) {
 		    session_start();
 
-			if (trim($terminoB)=="")
+			if (trim($term)=="")
 		        return json_encode([
 		            'error' => true,
                     'message' => 'Ingrese el termino correctamente.'
@@ -32,7 +32,7 @@
 		    $conn = $this->conectar();
 		
 			$termino = new Termino();
-			$termino->termino = $terminoB;
+			$termino->termino = $term;
 			$termino->fechaCreacion = date('Y/m/d H:i:s');
 
 			$query = "INSERT INTO termino(termino, fechaCreacion, usuarioId) 
@@ -46,6 +46,11 @@
 			]);
 
 			if ($result) {
+                $idTerm = $conn->lastInsertId();
+
+                $searchController = new SearchTermController();
+                $searchController->searchTermInAllFiles($term, $idTerm);
+
 				return json_encode([
 				    'error' => false,
                     'message' => 'Termino registrado correctamente.'

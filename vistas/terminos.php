@@ -53,7 +53,8 @@
                                             <td><?= $termino["username"] ?></td>
                                         <?php endif; ?>
                                         <td>
-                                            <button data-delete="<?= $termino["id"] ?>" data-termino="<?= $termino["termino"] ?>" class="btn btn-sm btn-danger">
+                                            <button data-delete="<?= $termino["id"] ?>" data-termino="<?= $termino["termino"] ?>"
+                                                    class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
                                         </td>

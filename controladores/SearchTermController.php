@@ -4,72 +4,66 @@ include "../modelos/Resultado.php";
 include "../modelos/ResultadoDetalle.php";
 include "../datos/Conexion.php";
 
-session_start();
-
 class SearchTermController extends Conexion {
 
-	public function buscarTermino($termino, $idTerm) {
-		$searchTerm = trim($termino);
-		
-		if ($searchTerm == "")
-	        return json_encode([
-	        	'error' => true, 
-	        	'message' => 'Ingrese el termino correctamente.'
-	        ]);
+    private function convertToRegularExpression($term) {
+        // beginning character
+        if (substr($term, 0, 1)=="%") {
+            $term = substr_replace($term, "\w",0,1);
+        } else {
+            $term = "^".$term;
+        }
+        // trailing character
+        if (substr($term, -1)=="%") {
+            $term = substr_replace($term, "\w",-1,1);
+        } else {
+            $term = $term."$";
+        }
 
+        // Replace "%" with "\w" and "*" with "."
+        $regEx = str_replace("%", "\w", $term);
+        $regEx = str_replace("*", ".", $regEx);
+        return "/$regEx/";
+    }
+
+	public function searchTermInAllFiles($term, $idTerm) {
 	    $con = $this->conectar();
-	
-		if (substr($termino, 0, 1)=="%") {
-			$termino = substr_replace($termino, "\w",0,1);
-		} else {
-			$termino = "^".$termino;
-		}
-		
-		if (substr($termino, -1)=="%") {
-			$termino = substr_replace($termino, "\w",-1,1);
-		} else {
-			$termino = $termino."$";
-		}
-		
-		// Reemplazar % por \w y * por .
-		$regEx = str_replace("%", "\w", $termino);
-		$regEx = str_replace("*", ".", $regEx);
-		$regEx = "/$regEx/";
+        $regEx = $this->convertToRegularExpression($term);
 
-		$resultado = [];
-
-		$idUsuario = $_SESSION['id'];
-		$files = $this->getAssociatedFiles($con, $idUsuario);
-		
+        $files = $this->getAllFiles($con);
 		foreach ($files as $file)
 			$this->searchInFile($con, $file, $idTerm, $regEx);
-
-		$sql = $con->prepare('SELECT R.id, T.termino, A.filename, R.fecha FROM resultado R
-								INNER JOIN termino T
-								ON R.terminoId = T.id
-								INNER JOIN archivo A
-								ON R.archivoId = A.id
-								WHERE R.terminoId=:terminoId');
-		$sql->execute([
-		    "terminoId" => $idTerm
-		]);
-
-		$results = $sql->fetchAll();
-		
-		return json_encode([
-			'error' => false, 
-			'results' => $results, 
-			'termino' => $termino
-		]);	
 	}
+
+    public function searchAllTermsInAFile($file) {
+        $con = $this->conectar();
+
+        $terms = $this->getAllTerms($con);
+        foreach ($terms as $term) {
+            $regEx = $this->convertToRegularExpression($term['termino']);
+            $this->searchInFile($con, $file, $term['id'], $regEx);
+        }
+    }
+
+    private function getAllFiles($con) {
+        $sql = $con->prepare('SELECT filename, id FROM archivo');
+        $sql->execute();
+        return $sql->fetchAll();
+    }
+
+    private function getAllTerms($con) {
+        $sql = $con->prepare('SELECT termino, id FROM termino');
+        $sql->execute();
+        return $sql->fetchAll();
+    }
 
 	private function getAssociatedFiles($con, $idUsuario) {
 		$sql = $con->prepare('SELECT A.filename, A.id 
 								FROM usuarios_archivos UA 
 								INNER JOIN archivo A ON UA.archivoId = A.id 
-								WHERE UA.usuarioId=:usuarioId');
+								WHERE UA.usuarioId=:userId');
 		$sql->execute([
-		    "usuarioId" => $idUsuario
+		    "userId" => $idUsuario
 		]);
 
 		return $sql->fetchAll();
@@ -110,6 +104,7 @@ class SearchTermController extends Conexion {
 		
 		foreach ($cadenas as $cadena) { 
 			if (preg_match_all($regEx, $cadena)) {
+
 			    // Resultado (detalle)
 				$detalle = new ResultadoDetalle();
 				$detalle->resultadoId = $idResultado;

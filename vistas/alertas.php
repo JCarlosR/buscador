@@ -16,12 +16,10 @@
 
             <?php 
                 $pageTitle = 'Alertas';
-                include 'layouts/panel/topbar.php' 
+                include 'layouts/panel/topbar.php';
+                include 'layouts/panel/left-sidebar.php';
+                include '../rutas/listaResultados.php';
             ?>
-
-            <?php include 'layouts/panel/left-sidebar.php' ?>
-            <?php include '../rutas/listaResultados.php'; ?>
-
 
             <div class="content-page">
                 <div class="content">
@@ -69,6 +67,10 @@
                                         <th>Detectado</th>
                                         <th>Término de busqueda</th>
                                         <th>Buscado en</th>
+                                        <th>Resultado</th>
+                                        <?php if ($_SESSION['rol']==2): ?>
+                                            <th>Usuario</th>
+                                        <?php endif; ?>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
@@ -78,14 +80,11 @@
                                         <td><?= $resultado["fecha"] ?></td>
                                         <td><?= $resultado["termino"] ?></td>
                                         <td><?= $resultado["filename"] ?></td>
+                                        <td><?= $resultado["coincidencia"] ?></td>
+                                        <?php if ($_SESSION['rol']==2): ?>
+                                            <td><?= $resultado["username"] ?></td>
+                                        <?php endif; ?>
                                         <td>
-                                            <button data-details="<?= $resultado["id"] ?>"
-                                                    data-termino="<?= $resultado["termino"] ?>"
-                                                    data-title="Ver coincidencias encontradas"
-                                                    data-toggle="tooltip"
-                                                    class="btn btn-sm btn-info">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
                                             <button data-send="<?= $resultado["id"] ?>" class="btn btn-sm btn-info"
                                                     data-title="Compartir por correo"
                                                     data-toggle="tooltip">
@@ -105,42 +104,6 @@
             </div> <!-- content -->
 
             <?php include 'rightsidebar.php'; ?>
-        </div>
-
-        <div id="result-modal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="smaller lighter blue no-margin">Coincidencias</h3>
-                    </div>
-                    <form class="form-horizontal" role="form" id="form-result">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right">
-                                    Término buscado
-                                </label>
-                                <div class="col-sm-9">
-                                    <input type="text" disabled id="terminoBuscado" name="terminoBuscado" class="form-control col-xs-10 col-sm-10" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Coincidencias</label>
-                                <div id="coincidencias"></div>                                
-                            </div>
-
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
-                                <i class="ace-icon fa fa-times"></i>
-                                Cerrar
-                            </button>
-                        </div>
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
         </div>
 
         <?php include 'layouts/panel/scripts.php'; ?>
