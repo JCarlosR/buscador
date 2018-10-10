@@ -28,8 +28,8 @@ function showModalDelete() {
 
 function deleteTerm() {
 	event.preventDefault();
-    var url = '../rutas/eliminarTermino.php';
-    var data = $("#form-delete").serializeArray();
+    const url = '../rutas/eliminarTermino.php';
+    const data = $("#form-delete").serializeArray();
     $.ajax({
         url: url,
         data: data,
@@ -44,7 +44,6 @@ function deleteTerm() {
             alert(response.message);
             location.reload();
         }
-
     });
 }
 

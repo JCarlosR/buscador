@@ -1,4 +1,4 @@
-<?php 
+<?php
     session_start();
     $activeSession = isset($_SESSION['username']);
 ?>

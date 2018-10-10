@@ -68,7 +68,7 @@
 			$usuario->username = $username;
 			$usuario->password = base64_encode($password);
 
-			$query = 'SELECT id, username, rol FROM usuario WHERE username = :username AND password = :password LIMIT 1';
+			$query = 'SELECT id, username, rol, email FROM usuario WHERE username = :username AND password = :password LIMIT 1';
 			$sql = $conn->prepare($query);
 
 
@@ -84,6 +84,7 @@
 		            $_SESSION["id"] = $row['id'];
 		            $_SESSION["username"] = $row['username'];
 		            $_SESSION["rol"] = $row['rol'];
+                    $_SESSION["email"] = $row['email'];
 	            }
 
 	            return json_encode([
