@@ -89,16 +89,17 @@
 
 			if ($_SESSION['rol']==2) {
                 $sql = $con->prepare('SELECT * FROM archivo');
+                $sql->execute();
             } else {
 			    $query = "SELECT A.* 
                           FROM usuarios_archivos UA
                           JOIN archivo A ON UA.archivoId = A.id
                           WHERE UA.usuarioId = :userId";
-                $sql = $con->prepare($query, [
+                $sql = $con->prepare($query);
+                $sql->execute([
                     'userId' => $_SESSION['id']
                 ]);
             }
-			$sql->execute();
 
 			return $sql->fetchAll();
 		}
