@@ -22,7 +22,7 @@
 
 
         <li>
-            <a href="buscador.php" class="waves-effect">
+            <a href="archivos.php" class="waves-effect">
                 <i class="zmdi zmdi-search-in-file"></i> 
                 <span>Mis archivos</span> 
             </a>

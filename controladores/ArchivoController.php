@@ -85,15 +85,22 @@
 		}
 
 		function listaArchivos(){
-			$conn = $this->conectar();
+			$con = $this->conectar();
 
-			$sql = $conn->prepare('SELECT * FROM archivo');
+			if ($_SESSION['rol']==2) {
+                $sql = $con->prepare('SELECT * FROM archivo');
+            } else {
+			    $query = "SELECT A.* 
+                          FROM usuarios_archivos UA
+                          JOIN archivo A ON UA.archivoId = A.id
+                          WHERE UA.usuarioId = :userId";
+                $sql = $con->prepare($query, [
+                    'userId' => $_SESSION['id']
+                ]);
+            }
 			$sql->execute();
-			$files = $sql->fetchAll();
-			$sql->closeCursor(); // opcional en MySQL, dependiendo del controlador de base de datos puede ser obligatorio
-			$sql = null; // para cerrar la conexión
-			$conn = null;
-			return $files;
+
+			return $sql->fetchAll();
 		}
 
 		function eliminarArchivo($id){
