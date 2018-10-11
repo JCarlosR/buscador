@@ -29,7 +29,12 @@
                     <div class="container">
 
                         <div class="card-box">
-                            <button id="btn-create" class="btn btn-info waves-effect waves-light m-b-5"> <i class="fa fa-plus m-r-5"></i> <span>Agregar archivo</span> </button>
+                            <?php if ($_SESSION['rol']==2): ?>
+                            <button id="btn-create" class="btn btn-info waves-effect waves-light m-b-5">
+                                <i class="fa fa-plus m-r-5"></i>
+                                <span>Agregar archivo</span>
+                            </button>
+                            <?php endif; ?>
                             <table class="table table table-hover m-0">
                                 <thead>
                                     <tr>
