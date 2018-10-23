@@ -1,8 +1,10 @@
+let $modalEdit;
+let $modalDelete;
+let $modalCreate;
+
 $(document).ready(function(){
 	$modalEdit = $("#edit-modal");
-
 	$modalDelete = $("#delete-modal");
-
 	$modalCreate = $("#create-modal");
 
 	$(document).on('click', '[data-edit]', showModalEdit);
@@ -15,32 +17,30 @@ $(document).ready(function(){
 	$("#form-create").on('submit', createUser);
 });
 
-var $modalEdit;
-var $modalDelete;
-var $modalCreate;
-
 function showModalEdit() {
 	event.preventDefault();
 
-	$id = $(this).data('edit');
-	$email = $(this).data('email');
-	$username = $(this).data('username');
+	const id = $(this).data('edit');
+	const email = $(this).data('email');
+	const username = $(this).data('username');
+    const active = $(this).data('active');
 
-	$modalEdit.find('[name="id"]').val($id);
-	$modalEdit.find('[name="email"]').val($email);
-	$modalEdit.find('[name="username"]').val($username);
+	$modalEdit.find('[name="id"]').val(id);
+	$modalEdit.find('[name="email"]').val(email);
+	$modalEdit.find('[name="username"]').val(username);
+    $modalEdit.find('[name="active"]').val(active).change();
 
 	$modalEdit.modal({
-		show:true,
-		backdrop:'static'
+		show: true,
+		backdrop: 'static'
 	});
 }
 
 function editUser() {
 	event.preventDefault();
 
-    var url = '../rutas/modificarUsuario.php';
-    var data = $("#form-edit").serializeArray();
+    const url = '../rutas/modificarUsuario.php';
+    const data = $("#form-edit").serializeArray();
 
     $.ajax({
         url: url,
@@ -49,10 +49,10 @@ function editUser() {
     })
     .done(function(response) {
     	console.log(response);
-        if(response.error) {
+        if (response.error) {
         	console.log(response.message);
             alert(response.message);
-        }else{
+        } else {
             alert(response.message);
             location.reload();
         }
@@ -63,11 +63,11 @@ function editUser() {
 function showModalDelete() {
 	event.preventDefault();
 
-	$id = $(this).data('delete');
-	$username = $(this).data('username');
+	const id = $(this).data('delete');
+	const username = $(this).data('username');
 
-	$modalDelete.find('[name="id"]').val($id);
-	$modalDelete.find('[name="username"]').val($username);
+	$modalDelete.find('[name="id"]').val(id);
+	$modalDelete.find('[name="username"]').val(username);
 
 	$modalDelete.modal({
 		show:true,
@@ -78,8 +78,8 @@ function showModalDelete() {
 function deleteUser() {
 	event.preventDefault();
     
-    var url = '../rutas/eliminarUsuario.php';
-    var data = $("#form-delete").serializeArray();
+    const url = '../rutas/eliminarUsuario.php';
+    const data = $("#form-delete").serializeArray();
     
     $.ajax({
         url: url,
@@ -111,8 +111,8 @@ function showModalCreate() {
 function createUser() {
 	event.preventDefault();
     
-    var url = '../rutas/registrarUsuario.php';
-    var data = $("#form-create").serializeArray();
+    const url = '../rutas/registrarUsuario.php';
+    const data = $("#form-create").serializeArray();
     
     $.ajax({
         url: url,

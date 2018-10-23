@@ -9,12 +9,12 @@ class Usuario {
 	public $email;
 	public $password;
 	public $rol;
-	public $activo;
+	public $active;
     public $reset_password_token;
 
 	public static function find($id) {
-        $conexion = new Conexion();
-        $con = $conexion->conectar();
+        $connection = new Conexion();
+        $con = $connection->conectar();
 
         $query = "SELECT 
                 id, email, username, rol 

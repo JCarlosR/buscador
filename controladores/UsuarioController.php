@@ -68,7 +68,7 @@
 			$usuario->username = $username;
 			$usuario->password = base64_encode($password);
 
-			$query = 'SELECT id, username, rol, email FROM usuario WHERE username = :username AND password = :password LIMIT 1';
+			$query = 'SELECT id, username, rol, email FROM usuario WHERE username = :username AND password = :password AND activo = 1 LIMIT 1';
 			$sql = $conn->prepare($query);
 
 
@@ -94,7 +94,7 @@
 	        } else {
 	            return json_encode([
 	                'error' => true,
-                    'message' => 'Los datos ingresados son incorrectos.'
+                    'message' => 'Los datos son incorrectos o su cuenta se encuentra bloqueada.'
                 ]);
 	        }
 		}
@@ -109,7 +109,7 @@
 			return $users;
 		}
 
-		function modificarUsuario($id, $email, $username, $password) {
+		function modificarUsuario($id, $email, $username, $password, $active) {
 			$username = trim($username);
 			$email = trim($email);
 
@@ -125,13 +125,15 @@
 			$usuario->id = $id;
 			$usuario->email = $email;
 			$usuario->username = $username;
+            $usuario->active = $active;
 			
 			if ($password == "" || $password == null) {
-				$sql = $conn->prepare("UPDATE usuario SET email=:email, username=:username WHERE id=:id");
+				$sql = $conn->prepare("UPDATE usuario SET email=:email, username=:username, activo=:active WHERE id=:id");
 				
 				$result = $sql->execute(array(
 				    "email" => $usuario->email,
 				    "username" => $usuario->username,
+				    'active' => $usuario->active,
 				    "id" => $usuario->id
 				));				
 				
@@ -140,13 +142,12 @@
 
 				$sql = $conn->prepare("UPDATE usuario SET email=:email, username=:username, password=:password WHERE id=:id");
 				
-				$result = $sql->execute(array(
+				$result = $sql->execute([
 				    "email" => $usuario->email,
 				    "username" => $usuario->username,
 				    "password" => $usuario->password,
 				    "id" => $usuario->id
-				));
-				
+                ]);
 			}
 
 			if ($result)

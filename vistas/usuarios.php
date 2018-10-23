@@ -60,13 +60,13 @@
                                             <td>Administrador</td>
                                         <?php
                                         }
-                                        
                                         ?>
                                         
                                         <td>
                                             <button class="btn btn-sm btn-info"  
                                                 data-email="<?= $usuario["email"] ?>" 
-                                                data-username="<?= $usuario["username"] ?>" 
+                                                data-username="<?= $usuario["username"] ?>"
+                                                data-active="<?= $usuario["activo"] ?>"
                                                 data-edit="<?= $usuario["id"] ?>">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
@@ -107,30 +107,44 @@
 
                         
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right">
+                                    <label class="col-sm-3 control-label no-padding-right" for="newEmail">
                                         Nuevo email
                                     </label>
-
                                     <div class="col-sm-9">
-                                        <input type="text" name="email" class="form-control col-xs-10 col-sm-10" />
+                                        <input type="text" name="email" id="newEmail"
+                                               class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right"> Nuevo usuario </label>
-
+                                    <label class="col-sm-3 control-label no-padding-right" for="newUserName">
+                                        Nuevo usuario
+                                    </label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="username" class=" form-control col-xs-10 col-sm-10" />
+                                        <input type="text" name="username" id="newUserName"
+                                               class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right">
+                                    <label class="col-sm-3 control-label no-padding-right" for="status_active">
+                                        Activo
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <select name="active" id="status_active" class="form-control">
+                                            <option value="1">Sí</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="newPass">
                                         Nueva contraseña (opcional)
                                     </label>
-
                                     <div class="col-sm-9">
-                                        <input type="text" name="password" class="form-control col-xs-10 col-sm-10" />
+                                        <input type="text" name="password" id="newPass"
+                                               class="form-control">
                                     </div>
                                 </div>
 
@@ -164,12 +178,12 @@
                                 <input type="hidden" name="id">
                         
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right">
+                                    <label class="col-sm-3 control-label no-padding-right" for="userNameToDelete">
                                         Usuario a elimnar
                                     </label>
-
                                     <div class="col-sm-9">
-                                        <input type="text" disabled name="username" class="form-control col-xs-10 col-sm-10" />
+                                        <input type="text" disabled name="username" id="userNameToDelete"
+                                               class="form-control">
                                     </div>
                                 </div>
 
@@ -180,7 +194,7 @@
                                     <i class="ace-icon fa fa-times"></i>
                                     Cerrar
                                 </button>
-                                <button id="edit-user" type="submit" class="btn btn-sm btn-primary pull-left" >
+                                <button type="submit" class="btn btn-sm btn-primary pull-left" >
                                     <i class="ace-icon fa fa-save"></i>
                                     Eliminar
                                 </button>
