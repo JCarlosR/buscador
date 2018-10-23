@@ -40,7 +40,9 @@
                                     <tr>
                                         <th>Fecha de subida</th>
                                         <th>Nombre de archivo</th>
+                                        <?php if ($_SESSION['rol']==2): ?>
                                         <th>Acciones</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,11 +52,13 @@
                                     <tr>
                                         <td><?= $archivo["created_at"] ?></td>
                                         <td><?= $archivo["filename"] ?></td>
+                                        <?php if ($_SESSION['rol']==2): ?>
                                         <td>
                                             <button class="btn btn-sm btn-danger" data-delete="<?= $archivo["id"] ?>" data-archivo="<?= $archivo["filename"] ?>">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
                                         </td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php 
                                     }
