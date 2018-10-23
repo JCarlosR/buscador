@@ -1,8 +1,11 @@
 <?php 
     session_start();
     $sessionStarted = isset($_SESSION['username']);
+    if (isset($_SESSION['rol'])) {
+        $rol = $_SESSION['rol'];
+    }
 
-    if (!$sessionStarted) {
+    if (!$sessionStarted || $rol != 2) {
         header('Location: ../index.php');
     }
  ?>
